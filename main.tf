@@ -98,7 +98,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   # Use the SSH key from the local machine. This will be the only way to access the VM
   admin_ssh_key {
     username = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = var.ssh_key
   }
 
   size = "Standard_B1s"
