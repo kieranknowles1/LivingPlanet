@@ -99,14 +99,14 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 
-  admin_username = "azureuser"
+  admin_username = var.username
   # Use the SSH key from the local machine. This will be the only way to access the VM
   admin_ssh_key {
-    username = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    username = var.username
+    public_key = file(var.ssh_public_key)
   }
 
-  size = "Standard_B1s"
+  size = var.vm_size
   network_interface_ids = [azurerm_network_interface.nic.id]
 
   os_disk {
