@@ -1,0 +1,13 @@
+#!/bin/bash
+# Exit on error
+# Error on undefined variable
+# Error on piped command error
+# This ensures bash will fail-fast and not try to continue on error
+set -eu -o pipefail
+
+DEPS=nginx-core
+
+sudo apt-get update
+sudo apt-get install -y $DEPS
+
+sudo echo "<html><body><h1>Hello from $(hostname)</h1></body></html>" > /var/www/html/index.html

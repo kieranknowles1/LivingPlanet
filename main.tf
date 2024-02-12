@@ -1,3 +1,8 @@
+locals {
+  data_inputs = {
+  }
+}
+
 resource "azurerm_resource_group" "rg" {
   name = "${var.prefix}-rg"
   location = var.region
@@ -116,4 +121,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku = "22_04-lts-gen2"
     version = "latest"
   }
+
+  user_data = base64encode(templatefile("./userdata.tftpl", local.data_inputs))
 }
