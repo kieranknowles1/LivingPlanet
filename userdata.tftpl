@@ -44,3 +44,6 @@ sudo mysql -e "CREATE USER '$(whoami)'@'localhost' IDENTIFIED BY '${mysql_passwo
 
 # Apply changes
 sudo mysql -e "FLUSH PRIVILEGES;"
+
+# Download the app code
+wget -O /tmp/src.zip "${src_blob_url}"

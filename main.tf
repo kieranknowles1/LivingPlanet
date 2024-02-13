@@ -1,17 +1,3 @@
-locals {
-  data_inputs = {
-    mysql_password = var.mysql_password
-  }
-}
-
-# Generate a random name for the storage account
-resource "random_string" "storage_name" {
-  length = 24
-  special = false
-  upper = false
-  lower = true
-}
-
 resource "azurerm_resource_group" "rg" {
   name = "${var.prefix}-rg"
   location = var.region
@@ -111,27 +97,6 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_container" "src" {
-  name = "src"
-  storage_account_name = azurerm_storage_account.storage.name
-  container_access_type = "blob"
-}
-
-# Zip and upload the source code to the storage account
-data "archive_file" "src" {
-  type = "zip"
-  source_dir = "html"
-  output_path = "html.zip"
-}
-
-resource "azurerm_storage_blob" "html" {
-  name = "html.zip"
-  storage_account_name = azurerm_storage_account.storage.name
-  storage_container_name = azurerm_storage_container.src.name
-  type = "Block"
-  source = data.archive_file.src.output_path
-}
-
 # Create a virtual machine. Needs all of the resources created above
 # Uses a B1s VM size. Can host 1 of these for free with a student account
 resource "azurerm_linux_virtual_machine" "vm" {
@@ -162,5 +127,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version = "latest"
   }
 
-  user_data = base64encode(templatefile("./userdata.tftpl", local.data_inputs))
+  user_data = base64encode(templatefile("./userdata.tftpl", {
+    mysql_password = var.mysql_password
+    src_blob_url = azurerm_storage_blob.html.id
+  }))
 }
