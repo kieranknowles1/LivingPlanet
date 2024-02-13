@@ -10,8 +10,3 @@ terraform plan -out main.tfplan
 
 # Apply the deployment
 terraform apply main.tfplan
-
-# Get the public IP of the VM
-$publicIp = terraform output public_ip
-
-Write-Output "Web server deployed at $publicIp"
