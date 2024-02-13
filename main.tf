@@ -87,16 +87,6 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg_associa
   network_security_group_id = azurerm_network_security_group.securitygroup.id
 }
 
-# Create a storage account for the source code
-# The name needs to be globally unique, so we use a random string
-resource "azurerm_storage_account" "storage" {
-  name = "${random_string.storage_name.result}"
-  resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-  account_tier = "Standard"
-  account_replication_type = "LRS"
-}
-
 # Create a virtual machine. Needs all of the resources created above
 # Uses a B1s VM size. Can host 1 of these for free with a student account
 resource "azurerm_linux_virtual_machine" "vm" {
