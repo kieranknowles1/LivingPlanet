@@ -25,6 +25,7 @@ sudo sed -i 's/allow_url_fopen = Off/allow_url_fopen = On/' $inipath
 sudo sed -i 's/upload_max_filesize = .*$/upload_max_filesize = 64M/g' $inipath
 sudo sed -i 's/memory_limit = .*/$memory_limit = 256M/g' $inipath
 
+#  https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
 # Secure the root MySQL user
 sudo mysqladmin password "${mysql_password}"
 
