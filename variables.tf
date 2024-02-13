@@ -30,4 +30,5 @@ variable "ssh_public_key" {
 
 variable "mysql_password" {
   description = "Password for 'username'@'localhost' in the MySQL database"
+  sensitive = true
 }
