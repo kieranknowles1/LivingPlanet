@@ -1,5 +1,6 @@
 locals {
   data_inputs = {
+    mysql_password = var.mysql_password
   }
 }
 

@@ -27,3 +27,7 @@ variable "ssh_public_key" {
   description = "Path to the SSH public key used to access the VM"
   default = "~/.ssh/id_rsa.pub"
 }
+
+variable "mysql_password" {
+  description = "Password for 'username'@'localhost' in the MySQL database"
+}
