@@ -29,7 +29,8 @@ ssh azureuser@<public-ip>
 ## Configuration
 
 Config variables that you may want to change are located in `variables.tf`.
-These are not sensitive and can be safely committed to version control.
+These are not sensitive unless stated otherwise, and can be safely committed to
+source control.
 See the comments in the file for more information.
 
 ## Deployment

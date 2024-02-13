@@ -1,13 +1,26 @@
 #!/bin/bash
+# Script to configure a new instance with a LAMP stack, and download the app code
+
 # Exit on error
 # Error on undefined variable
 # Error on piped command error
 # This ensures bash will fail-fast and not try to continue on error
 set -eu -o pipefail
 
-DEPS=nginx-core
-
 sudo apt-get update
-sudo apt-get install -y $DEPS
+sudo apt-get install -y \
+    apache2 mysql-server \
+    php php-mysqlnd php-gd \
+    php-mbstring
 
-sudo echo "<html><body><h1>Hello from $(hostname)</h1></body></html>" > /var/www/html/index.html
+# Open local firewall to web traffic
+sudo ufw allow http
+sudo ufw allow https
+
+# https://stackoverflow.com/questions/8684609/where-can-i-find-php-ini
+inipath=$(php -i | grep /.+/php.ini -oE)
+
+sudo sed -i 's/file_uploads = Off/file_uploads = On/' $inipath
+sudo sed -i 's/allow_url_fopen = Off/allow_url_fopen = On/' $inipath
+sudo sed -i 's/upload_max_filesize = .*$/upload_max_filesize = 64M/g' $inipath
+sudo sed -i 's/memory_limit = .*/$memory_limit = 256M/g' $inipath
