@@ -9,6 +9,7 @@ set -eu -o pipefail
 
 sudo apt-get update
 sudo apt-get install -y \
+    unzip \
     apache2 mysql-server \
     php php-mysqlnd php-gd \
     php-mbstring
@@ -40,10 +41,14 @@ sudo mysql -e "DROP DATABASE IF EXISTS test;"
 sudo mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
 
 # Create a user for MySQL
-sudo mysql -e "CREATE USER '$(whoami)'@'localhost' IDENTIFIED BY '${mysql_password}';"
+sudo mysql -e "CREATE USER '${username})'@'localhost' IDENTIFIED BY '${mysql_password}';"
 
 # Apply changes
 sudo mysql -e "FLUSH PRIVILEGES;"
 
 # Download the app code
 wget -O /tmp/src.zip "${src_blob_url}"
+
+# Clear any default files in the web root and unzip the app code
+sudo rm -rf /var/www/html/*
+sudo unzip /tmp/src.zip -d /var/www/html
