@@ -36,14 +36,15 @@ See the comments in the file for more information.
 ## Deployment
 
 To deploy the app, you must have the following available and on your PATH:
-- [Terraform CLI](https://www.terraform.io/downloads.html)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [Nushell](https://www.nushell.sh/install.html) (optional, scripts should work with minimal changes in bash)
+- [Terraform CLI](https://www.terraform.io/downloads.html)
 
 You must also be logged in to the Azure CLI using `az login`. Please avoid
 doing this on a shared machine as it will allow others to access your Azure
 account, which may result in unexpected charges.
 
-To deploy the app, run `deploy.ps1` from the root of the repository (Linux is unsupported, but should work with minimal changes).
+To deploy the app, run `nu deploy.nu` from the root of the repository.
 
-To take down the app, run `destroy.ps1`. Make sure to do this when you're done to avoid any charges. It is also a good idea to set a
+To take down the app, run `nu destroy.nu`. Make sure to do this when you're done to avoid any charges. It is also a good idea to set a
 low budget alert to notify you if you spend any money.

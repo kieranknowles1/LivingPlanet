@@ -1,6 +1,3 @@
-# Exit on error
-$ErrorActionPreference = "Stop"
-
 # Only strictly required on first deployment. Install any required providers
 terraform init
 
