@@ -37,7 +37,7 @@ See the comments in the file for more information.
 
 To deploy the app, you must have the following available and on your PATH:
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-- [Nushell](https://www.nushell.sh/install.html) (optional, scripts should work with minimal changes in bash)
+- [Nushell](https://www.nushell.sh/install.html) (optional, scripts can be run manually)
 - [Terraform CLI](https://www.terraform.io/downloads.html)
 
 You must also be logged in to the Azure CLI using `az login`. Please avoid
