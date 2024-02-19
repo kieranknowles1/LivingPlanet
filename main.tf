@@ -27,6 +27,10 @@ resource "azurerm_public_ip" "publicip" {
   allocation_method = "Dynamic"
 }
 
+data "http" "ip" {
+  url = "http://ifconfig.me"
+}
+
 # Create a network security group and rules
 resource "azurerm_network_security_group" "securitygroup" {
   name = "${var.prefix}-nsg"
@@ -35,7 +39,7 @@ resource "azurerm_network_security_group" "securitygroup" {
 
   security_rule {
     name = "SSH"
-    description = "Allow SSH from any source"
+    description = "Allow SSH from the local machine to the VM only"
     priority = 1000
     # Do not allow a VM to SSH into another system
     direction = "Inbound"
@@ -43,10 +47,8 @@ resource "azurerm_network_security_group" "securitygroup" {
     protocol = "Tcp"
     source_port_range = "*"
     destination_port_range = "22"
-    # This could be secured further by setting this to the IP of the admin's machine
-    source_address_prefix = "*"
-    # Could be set to the IP of a specific VM
-    destination_address_prefix = "*"
+    source_address_prefix = "${data.http.ip.response_body}"
+    destination_address_prefix = azurerm_linux_virtual_machine.vm.private_ip_address
   }
   security_rule {
     name = "HTTP"
