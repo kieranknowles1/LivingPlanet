@@ -25,7 +25,7 @@ resource "azurerm_storage_container" "src" {
 # Zip and upload the source code to the storage account
 data "archive_file" "src" {
   type = "zip"
-  source_dir = "html"
+  source_dir = "src/html"
   output_path = "html.zip"
 }
 
