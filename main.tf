@@ -25,9 +25,10 @@ resource "azurerm_public_ip" "publicip" {
   resource_group_name = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
   allocation_method = "Dynamic"
+  domain_name_label = var.domain_name
 }
 
-data "http" "ip" {
+data "http" "setup_ip" {
   url = "http://ifconfig.me"
 }
 
@@ -47,7 +48,7 @@ resource "azurerm_network_security_group" "securitygroup" {
     protocol = "Tcp"
     source_port_range = "*"
     destination_port_range = "22"
-    source_address_prefix = "${data.http.ip.response_body}"
+    source_address_prefix = "${data.http.setup_ip.response_body}"
     destination_address_prefix = azurerm_linux_virtual_machine.vm.private_ip_address
   }
   security_rule {

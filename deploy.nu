@@ -23,7 +23,7 @@ def update [] {
     print "Uploading the new source code to the VM..."
     print "You may have to enter your SSH password and/or accept the host key."
 
-    let public_ip = terraform output -raw public_ip
+    let fqdn = terraform output -raw fqdn
     let blob_url = terraform output -raw src_blob_url
 
     let commands = [
@@ -32,5 +32,5 @@ def update [] {
         "sudo unzip /tmp/src.zip -d /var/www/html"
     ] | str join " && "
 
-    ssh $"azureuser@($public_ip)" $commands
+    ssh $"azureuser@($fqdn)" $commands
 }

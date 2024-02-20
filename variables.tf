@@ -10,7 +10,12 @@ variable "region" {
 
 variable "prefix" {
   description = "Prefix for all resources, must be unique to your subscription"
-  default = "TestDeployment"
+  default = "LivingPlanet"
+}
+
+variable "domain_name" {
+  description = "The domain name prefix bound to the public IP. Must be unique to the region"
+  default = "livingplanet"
 }
 
 variable "vm_size" {

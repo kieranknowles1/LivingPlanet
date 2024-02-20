@@ -1,6 +1,6 @@
-output "public_ip" {
-  description = "The public IP address of the web server"
-  value = azurerm_linux_virtual_machine.vm.public_ip_address
+output "fqdn" {
+  description = "The public domain of the web server. Bind your own domain to this or visit the address directly."
+  value = azurerm_public_ip.publicip.fqdn
 }
 
 output "src_blob_url" {
