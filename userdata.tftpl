@@ -52,3 +52,6 @@ wget -O /tmp/src.zip "${src_blob_url}"
 # Clear any default files in the web root and unzip the app code
 sudo rm -rf /var/www/html/*
 sudo unzip /tmp/src.zip -d /var/www/html
+
+# Give Apache ownership of all public files
+sudo chown -R www-data:www-data /var/www/html
