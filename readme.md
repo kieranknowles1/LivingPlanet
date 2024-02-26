@@ -26,6 +26,13 @@ To connect via SSH, use the following command:
 ssh azureuser@<public-ip>
 ```
 
+NOTE: After destroying the VM and redeploying, the host key will change and SSH
+will refuse to connect with the warning `POSSIBLE DNS SPOOFING DETECTED!`, `REMOTE HOST IDENTIFICATION HAS CHANGED!`.
+This is the expected behaviour, and can be resolved by removing the old host key from `~/.ssh/known_hosts`.
+
+If you are IN ANY DOUBT about the authenticity of the host, verify the fingerprint you are seeing with the one in
+boot diagnostics and DO NOT CONNECT if they do not match.
+
 ## Configuration
 
 Config variables that you may want to change are located in `variables.tf`.
