@@ -10,9 +10,10 @@ set -eu -o pipefail
 sudo apt-get update
 sudo apt-get install -y \
     unzip \
-    apache2 mysql-server \
-    php php-mysqlnd php-gd \
+    apache2
+    php php-gd \
     php-mbstring
+    # mysql-server php-mysqlnd \
 
 # Open local firewall to web traffic
 sudo ufw allow http
@@ -26,25 +27,26 @@ sudo sed -i 's/allow_url_fopen = Off/allow_url_fopen = On/' $inipath
 sudo sed -i 's/upload_max_filesize = .*$/upload_max_filesize = 64M/g' $inipath
 sudo sed -i 's/memory_limit = .*/$memory_limit = 256M/g' $inipath
 
-#  https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
-# Secure the root MySQL user
-sudo mysqladmin password "${mysql_password}"
+# MySQL is disabled for now, as it is a memory hog
+# #  https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
+# # Secure the root MySQL user
+# sudo mysqladmin password "${mysql_password}"
 
-# Delete anonymous users
-sudo mysql -e "DELETE FROM mysql.user WHERE User='';"
+# # Delete anonymous users
+# sudo mysql -e "DELETE FROM mysql.user WHERE User='';"
 
-# Restrict root user to localhost
-sudo mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
+# # Restrict root user to localhost
+# sudo mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
 
-# Remove test database and all privileges related to it
-sudo mysql -e "DROP DATABASE IF EXISTS test;"
-sudo mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
+# # Remove test database and all privileges related to it
+# sudo mysql -e "DROP DATABASE IF EXISTS test;"
+# sudo mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
 
-# Create a user for MySQL
-sudo mysql -e "CREATE USER '${username})'@'localhost' IDENTIFIED BY '${mysql_password}';"
+# # Create a user for MySQL
+# sudo mysql -e "CREATE USER '${username})'@'localhost' IDENTIFIED BY '${mysql_password}';"
 
-# Apply changes
-sudo mysql -e "FLUSH PRIVILEGES;"
+# # Apply changes
+# sudo mysql -e "FLUSH PRIVILEGES;"
 
 # Download the app code
 wget -O /tmp/src.zip "${src_blob_url}"
