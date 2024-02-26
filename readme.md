@@ -23,7 +23,7 @@ one using `ssh-keygen`.
 To connect via SSH, use the following command:
 
 ```sh
-ssh azureuser@<public-ip>
+ssh azureuser@<fqdn>
 ```
 
 NOTE: After destroying the VM and redeploying, the host key will change and SSH
