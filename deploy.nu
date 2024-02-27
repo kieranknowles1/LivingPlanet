@@ -1,11 +1,11 @@
 # Deployment script for the infrastructure
 def main [
-    --updateonly # Only update the source code while assuming the infrastructure is already up to date
+    --update # Download the latest source code and update the website
 ] {
-    if ($updateonly) {
+    deploy
+
+    if $update {
         update
-    } else {
-        deploy
     }
 }
 
@@ -35,8 +35,12 @@ def update [] {
     let blob_url = terraform output -raw src_blob_url
 
     let commands = [
+        "echo 'Downloading the latest source code'"
+        "sudo rm --force /tmp/src.zip",
         $"sudo wget -O /tmp/src.zip ($blob_url)",
+        "echo 'Removing the old source code'"
         "sudo rm -rf /var/www/html/*",
+        "echo 'Unzipping the new source code'"
         "sudo unzip /tmp/src.zip -d /var/www/html"
     ] | str join " && "
 
