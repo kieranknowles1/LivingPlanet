@@ -120,11 +120,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version = "latest"
   }
 
-  user_data = base64encode(templatefile("./userdata.tftpl", {
+  user_data = base64encode(replace(templatefile("./userdata.tftpl", {
     mysql_password = var.mysql_password
     src_blob_url = azurerm_storage_blob.html.id
     username = var.username
-  }))
+  }), "\r\n", "\n"))
 
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.storage.primary_blob_endpoint
