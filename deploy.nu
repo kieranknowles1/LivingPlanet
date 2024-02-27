@@ -1,20 +1,28 @@
 # Deployment script for the infrastructure
 def main [
-    --update # Download the latest version of the source code to the vm
+    --updateonly # Only update the source code while assuming the infrastructure is already up to date
 ] {
+    if ($updateonly) {
+        update
+    } else {
+        deploy
+    }
+}
+
+def deploy [] {
     # Only strictly required on first deployment. Install any required providers
     terraform init
 
-    # Plan the deployment
+    # Plan the deployment. Force reupload of the source code to the storage account
     terraform plan -replace="azurerm_storage_blob.html" -out main.tfplan
-    # Review the plan here
+
+    # This is where you would review the plan if doing a manual deployment
 
     # Apply the deployment
     terraform apply main.tfplan
 
-    if ($update) {
-        update
-    }
+    print "Deployment complete. Please allow up to 5 minutes for setup to complete."
+    print $"You can access the website at: http://(terraform output -raw fqdn)"
 }
 
 def update [] {
@@ -32,5 +40,7 @@ def update [] {
         "sudo unzip /tmp/src.zip -d /var/www/html"
     ] | str join " && "
 
+    # This will not prompt for a password unless your SSH key is password protected
+    # Run the commands and exit. Output will be streamed to the console
     ssh $"azureuser@($fqdn)" $commands
 }
