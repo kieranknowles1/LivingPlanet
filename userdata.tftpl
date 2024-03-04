@@ -57,3 +57,10 @@ sudo unzip /tmp/src.zip -d /var/www/html
 
 # Give Apache ownership of all public files
 sudo chown -R www-data:www-data /var/www/html
+
+# Issue a SSL certificate. Certbot automatically configures Apache to upgrade all HTTP traffic to HTTPS
+sudo snap install --classic certbot
+
+sudo certbot --apache -d "${domain}" --email "${email}" --agree-tos --non-interactive
+
+# NOTE: This VM is meant to be ephemeral, so I haven't set up cert renewal

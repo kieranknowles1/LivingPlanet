@@ -37,3 +37,8 @@ variable "mysql_password" {
   description = "Password for 'username'@'localhost' in the MySQL database"
   sensitive = true
 }
+
+variable "email" {
+  description = "Email address to send Let's Encrypt expiration notices to"
+  sensitive = true
+}

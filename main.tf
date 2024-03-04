@@ -65,6 +65,18 @@ resource "azurerm_network_security_group" "securitygroup" {
     source_address_prefix = "*"
     destination_address_prefix = "*"
   }
+  security_rule {
+    name = "HTTPS"
+    description = "Allow HTTPS from any source"
+    priority = 1002
+    direction = "Inbound"
+    access = "Allow"
+    protocol = "Tcp"
+    source_port_range = "*"
+    destination_port_range = "443"
+    source_address_prefix = "*"
+    destination_address_prefix = "*"
+  }
   # Azure's default rules deny any inbound traffic not explicitly allowed
   # and allow all outbound traffic.
 }
@@ -124,6 +136,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     mysql_password = var.mysql_password
     src_blob_url = azurerm_storage_blob.html.id
     username = var.username
+    domain = azurerm_public_ip.publicip.fqdn
+    email = var.email
   }), "\r\n", "\n"))
 
   boot_diagnostics {
