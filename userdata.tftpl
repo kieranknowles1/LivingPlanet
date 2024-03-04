@@ -63,4 +63,5 @@ sudo snap install --classic certbot
 
 sudo certbot --apache -d "${domain}" --email "${email}" --agree-tos --non-interactive
 
-# NOTE: This VM is meant to be ephemeral, so I haven't set up cert renewal
+# Install a cron job to renew the certificate
+echo "0 12 1 * * root $(which certbot) renew --quiet" | sudo tee -a /etc/cron.d/certbot
