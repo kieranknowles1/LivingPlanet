@@ -17,6 +17,8 @@ def deploy [] {
     terraform plan -replace="azurerm_storage_blob.html" -out main.tfplan
 
     # This is where you would review the plan if doing a manual deployment
+    # Generate a graph of the deployment
+    terraform graph | save graph.dot --force
 
     # Apply the deployment
     terraform apply main.tfplan

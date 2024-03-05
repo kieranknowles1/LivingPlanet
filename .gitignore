@@ -1,6 +1,9 @@
 *.tfplan
 *.zip
 
+# Generated during deploy
+graph.dot
+
 # Created by https://www.toptal.com/developers/gitignore/api/terraform
 # Edit at https://www.toptal.com/developers/gitignore?templates=terraform
 
