@@ -10,6 +10,12 @@ module "network" {
   region = var.region
 }
 
+module "storage" {
+  source = "./storage"
+  resource_group_name = azurerm_resource_group.rg.name
+  region = var.region
+}
+
 data "http" "setup_ip" {
   url = "http://ifconfig.me"
 }
@@ -84,6 +90,22 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg_associa
   network_security_group_id = azurerm_network_security_group.securitygroup.id
 }
 
+# Zip and upload the source code to the storage account
+data "archive_file" "src" {
+  type = "zip"
+  source_dir = "src/html"
+  output_path = "html.zip"
+}
+
+# Blob containing the zippped source code. The ID of the resource is the URL to the blob
+resource "azurerm_storage_blob" "html" {
+  name = "html.zip"
+  storage_account_name = module.storage.storage_account_name
+  storage_container_name = module.storage.src_container_name
+  type = "Block"
+  source = data.archive_file.src.output_path
+}
+
 # Create a virtual machine. Needs all of the resources created above
 # Uses a B1s VM size. Can host 1 of these for free with a student account
 resource "azurerm_linux_virtual_machine" "vm" {
@@ -123,6 +145,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }), "\r\n", "\n"))
 
   boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.storage.primary_blob_endpoint
+    storage_account_uri = module.storage.primary_blob_endpoint
   }
 }
