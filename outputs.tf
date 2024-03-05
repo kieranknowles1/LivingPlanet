@@ -1,6 +1,6 @@
 output "fqdn" {
   description = "The public domain of the web server. Bind your own domain to this or visit the address directly."
-  value = azurerm_public_ip.publicip.fqdn
+  value = module.network.fqdn
 }
 
 output "src_blob_url" {

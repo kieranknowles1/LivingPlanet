@@ -3,29 +3,12 @@ resource "azurerm_resource_group" "rg" {
   location = var.region
 }
 
-# Create a network
-resource "azurerm_virtual_network" "vnet" {
-  name = "${var.prefix}-vnet"
+module "network" {
+  source = "./network"
+  prefix = var.prefix
   resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-  address_space = ["10.0.0.0/16"]
-}
-
-# Create a subnet
-resource "azurerm_subnet" "subnet" {
-  name = "${var.prefix}-subnet"
-  resource_group_name = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes = ["10.0.1.0/24"]
-}
-
-# Create a public IP
-resource "azurerm_public_ip" "publicip" {
-  name = "${var.prefix}-publicip"
-  resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-  allocation_method = "Dynamic"
   domain_name_label = var.domain_name
+  region = var.region
 }
 
 data "http" "setup_ip" {
@@ -89,10 +72,10 @@ resource "azurerm_network_interface" "nic" {
 
   ip_configuration {
     name = "testnicconfig"
-    subnet_id = azurerm_subnet.subnet.id
+    subnet_id = module.network.subnet_id
     private_ip_address_allocation = "Dynamic"
     # Expose the VM to the public internet
-    public_ip_address_id = azurerm_public_ip.publicip.id
+    public_ip_address_id = module.network.public_ip_id
   }
 }
 
@@ -136,7 +119,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     mysql_password = var.mysql_password
     src_blob_url = azurerm_storage_blob.html.id
     username = var.username
-    domain = azurerm_public_ip.publicip.fqdn
+    domain = module.network.fqdn
     email = var.email
   }), "\r\n", "\n"))
 
