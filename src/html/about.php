@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>About</h1>
+    <?php require 'components/navigation.php'; ?>
 
     <section>
         <h2>Developer Information</h2>
@@ -30,6 +31,7 @@
             <li><a href="https://code.visualstudio.com/">Visual Studio Code</a> - IDE</li>
             <li><a href="https://git-scm.com/">Git</a> - Version Control</li>
             <li><a href="https://httpd.apache.org/">Apache HTTP Server</a> - Web Server</li>
+            <li><a href="https://jquery.com/">jQuery</a> - JavaScript Library</li>
             <li><a href="https://nushell.sh/">Nu Shell</a> - Shell, used to make cross-platform scripts for automation</li>
             <li><a href="https://terraform.io/">Terraform</a> - Infrastructure as Code</li>
             <li><a href="https://www.mysql.com/">MySQL</a> - Database</li>

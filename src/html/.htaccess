@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Implicitly add .php to the end of URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ $1.php [L,QSA]
