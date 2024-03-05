@@ -8,11 +8,6 @@ variable "region" {
   type        = string
 }
 
-variable "prefix" {
-  description = "The prefix to use for all resources"
-  type        = string
-}
-
 variable "domain_name_label" {
   description = "The Azure subdomain to assign to the public IP"
   type        = string

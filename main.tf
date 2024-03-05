@@ -1,11 +1,10 @@
 resource "azurerm_resource_group" "rg" {
-  name = "${var.prefix}-rg"
+  name = "${var.resource_group_name}"
   location = var.region
 }
 
 module "network" {
   source = "./network"
-  prefix = var.prefix
   resource_group_name = azurerm_resource_group.rg.name
   domain_name_label = var.domain_name
   region = var.region
@@ -17,7 +16,7 @@ data "http" "setup_ip" {
 
 # Create a network security group and rules
 resource "azurerm_network_security_group" "securitygroup" {
-  name = "${var.prefix}-nsg"
+  name = "${azurerm_resource_group.rg.name}-nsg"
   resource_group_name = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 
@@ -66,7 +65,7 @@ resource "azurerm_network_security_group" "securitygroup" {
 
 # Network interface for the VM
 resource "azurerm_network_interface" "nic" {
-  name = "${var.prefix}-nic"
+  name = "${azurerm_resource_group.rg.name}-nic"
   resource_group_name = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 
@@ -88,7 +87,7 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg_associa
 # Create a virtual machine. Needs all of the resources created above
 # Uses a B1s VM size. Can host 1 of these for free with a student account
 resource "azurerm_linux_virtual_machine" "vm" {
-  name = "${var.prefix}-vm"
+  name = "${azurerm_resource_group.rg.name}-vm"
   resource_group_name = azurerm_resource_group.rg.name
   location = azurerm_resource_group.rg.location
 

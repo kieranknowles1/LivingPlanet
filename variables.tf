@@ -8,8 +8,8 @@ variable "region" {
   default = "uksouth"
 }
 
-variable "prefix" {
-  description = "Prefix for all resources, must be unique to your subscription"
+variable "resource_group_name" {
+  description = "Resource group to deploy resources. Resource names will be prefixed with this value"
   default = "LivingPlanet"
 }
 
