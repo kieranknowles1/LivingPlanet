@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.svg">
     <?php require 'components/jquery.php'; ?>
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
     <title>Living Planet</title>
 </head>
 <body>
