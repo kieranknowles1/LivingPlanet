@@ -14,6 +14,8 @@ if (file_exists("./html/$uri") && !is_dir("./html/$uri")) {
 
 if (str_ends_with($uri, '.css')) {
     header('Content-Type: text/css');
+} else if (str_ends_with($uri, '.js')) {
+    header('Content-Type: text/javascript');
 }
 
 require $uri;
