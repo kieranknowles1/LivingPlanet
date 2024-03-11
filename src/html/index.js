@@ -1,5 +1,5 @@
 jQuery(document).ready(() => {
-    $('#clickMe').click(() => {
-        alert('Hello World')
-    })
+  $('#clickMe').click(() => {
+    alert('Hello World')
+  })
 })

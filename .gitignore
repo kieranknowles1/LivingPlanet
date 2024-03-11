@@ -1,6 +1,8 @@
 *.tfplan
 *.zip
 
+node_modules/
+
 # Generated during deploy
 graph.dot
 
