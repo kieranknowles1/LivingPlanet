@@ -40,14 +40,13 @@
     </section>
 
     <section>
-        <h2>Image Credits</h2>
-
+        <h2>Client-Side Libraries</h2>
         <p>
-            The following images are used on this website:
+            The following client-side libraries were used to create the
+            front-end of this website:
         </p>
         <ul>
-
-        </ul>
+            <li><a href="https://jquery.com/">jQuery 3.7.1</a> - JavaScript Library</li>
     </section>
 </body>
 </html>
