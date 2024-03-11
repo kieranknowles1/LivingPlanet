@@ -19,28 +19,30 @@
             at what people are saying about food, drink, sleep and love in the City
         </p>
 
-        <button id='clickMe'>Click Me</button>
+        <form id="moodForm">
+            <fieldset>
+                <legend>Select a Mood</legend>
+                <label>
+                    <input type="radio" name="mood" value="food">
+                    Food
+                </label><br>
+                <label>
+                    <input type="radio" name="mood" value="drink">
+                    Drink
+                </label><br>
+                <label>
+                    <input type="radio" name="mood" value="sleep">
+                    Sleep
+                </label><br>
+                <label>
+                    <input type="radio" name="mood" value="love">
+                    Love
+                </label><br>
+            </fieldset>
+            <button type="submit">Submit</button>
+        </form>
 
-        <fieldset>
-            <legend>Select a Mood</legend>
-            <label>
-                <input type="radio" name="mood" value="food">
-                Food
-            </label><br>
-            <label>
-                <input type="radio" name="mood" value="drink">
-                Drink
-            </label><br>
-            <label>
-                <input type="radio" name="mood" value="sleep">
-                Sleep
-            </label><br>
-            <label>
-                <input type="radio" name="mood" value="love">
-                Love
-            </label><br>
-        </fieldset>
-        <button type="submit">Submit</button>
+        <p>The user is currently feeling <span id="mood"></span></p>
     </section>
 </body>
 </html>
