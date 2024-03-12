@@ -88,7 +88,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   user_data = base64encode(replace(templatefile("./userdata.tftpl", {
-    mysql_password = var.mysql_password
     src_blob_url   = azurerm_storage_blob.html.id
     username       = var.username
     domain         = module.network.fqdn

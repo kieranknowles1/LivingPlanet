@@ -14,5 +14,6 @@
     <section>
         <h2>What is OAuth?</h2>
     </section>
+    <?php require('components/footer.php'); ?>
 </body>
 </html>

@@ -44,5 +44,6 @@
 
         <p>The user is currently feeling <span id="mood"></span></p>
     </section>
+    <?php require('components/footer.php'); ?>
 </body>
 </html>

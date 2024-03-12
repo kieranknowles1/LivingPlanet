@@ -36,7 +36,6 @@
             <li><a href="https://nushell.sh/">Nu Shell</a> - Shell, used to make cross-platform scripts for automation</li>
             <li><a href="https://standardjs.com/">StandardJS</a> - JavaScript Style Guide</li>
             <li><a href="https://terraform.io/">Terraform</a> - Infrastructure as Code</li>
-            <li><a href="https://www.mysql.com/">MySQL</a> - Database</li>
             <li><a href="https://www.php.net/">PHP</a> - Server-Side Scripting Language</li>
         </ul>
     </section>
@@ -50,5 +49,6 @@
         <ul>
             <li><a href="https://jquery.com/">jQuery 3.7.1</a> - JavaScript Library</li>
     </section>
+    <?php require('components/footer.php'); ?>
 </body>
 </html>

@@ -13,7 +13,6 @@ sudo apt-get install -y \
     apache2 \
     php php-gd \
     php-mbstring
-    # mysql-server php-mysqlnd \
 
 # mod_expires is not enabled by default and is needed to set cache headers
 sudo a2enmod expires
@@ -33,27 +32,6 @@ sudo sed -i 's/memory_limit = .*/$memory_limit = 256M/g' $inipath
 # Enable .htaccess files
 sudo sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 sudo service apache2 restart
-
-# MySQL is disabled for now, as it is a memory hog
-# #  https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
-# # Secure the root MySQL user
-# sudo mysqladmin password "${mysql_password}"
-
-# # Delete anonymous users
-# sudo mysql -e "DELETE FROM mysql.user WHERE User='';"
-
-# # Restrict root user to localhost
-# sudo mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
-
-# # Remove test database and all privileges related to it
-# sudo mysql -e "DROP DATABASE IF EXISTS test;"
-# sudo mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
-
-# # Create a user for MySQL
-# sudo mysql -e "CREATE USER '${username})'@'localhost' IDENTIFIED BY '${mysql_password}';"
-
-# # Apply changes
-# sudo mysql -e "FLUSH PRIVILEGES;"
 
 # Download the app code
 wget -O /tmp/src.zip "${src_blob_url}"
