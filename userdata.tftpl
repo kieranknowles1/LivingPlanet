@@ -1,6 +1,8 @@
 #!/bin/bash
 # Script to configure a new instance with a LAMP stack, and download the app code
 
+APACHE_USER=www-data
+
 # Exit on error
 # Error on undefined variable
 # Error on piped command error
@@ -24,6 +26,7 @@ sudo ufw allow https
 # https://stackoverflow.com/questions/8684609/where-can-i-find-php-ini
 inipath=$(php -i | grep /.+/php.ini -oE)
 
+# Configure PHP
 sudo sed -i 's/file_uploads = Off/file_uploads = On/' $inipath
 sudo sed -i 's/allow_url_fopen = Off/allow_url_fopen = On/' $inipath
 sudo sed -i 's/upload_max_filesize = .*$/upload_max_filesize = 64M/g' $inipath
@@ -33,6 +36,10 @@ sudo sed -i 's/memory_limit = .*/$memory_limit = 256M/g' $inipath
 sudo sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 sudo service apache2 restart
 
+# Expose API keys to PHP
+sudo echo "SetEnv OPENWEATHER_API_KEY ${openweather_api_key}" | sudo tee /etc/apache2/conf-enabled/openweather-api-key.conf
+sudo chmod 777 /etc/apache2/conf-enabled/openweather-api-key.conf
+
 # Download the app code
 wget -O /tmp/src.zip "${src_blob_url}"
 
@@ -41,7 +48,7 @@ sudo rm -rf /var/www/html/*
 sudo unzip /tmp/src.zip -d /var/www/html
 
 # Give Apache ownership of all public files
-sudo chown -R www-data:www-data /var/www/html
+sudo chown -R "$APACHE_USER:$APACHE_USER" /var/www/html
 
 # Issue a SSL certificate. Certbot automatically configures Apache to upgrade all HTTP traffic to HTTPS
 sudo snap install --classic certbot
