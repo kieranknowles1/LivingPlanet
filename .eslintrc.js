@@ -2,8 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    jquery: true,
-    'google.maps': true
+    jquery: true
   },
   extends: 'standard',
   overrides: [
@@ -19,6 +18,9 @@ module.exports = {
       }
     }
   ],
+  globals: {
+    google: 'readonly'
+  },
   parserOptions: {
     ecmaVersion: 'latest'
   },

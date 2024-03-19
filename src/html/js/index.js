@@ -12,7 +12,7 @@ function initMap (element) {
     rotateControl: false,
     scaleControl: false,
     zoomControl: false,
-    fullscreenControl: false,
+    fullscreenControl: false
   })
 }
 
