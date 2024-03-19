@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     jquery: true,
-    google: true
+    'google.maps': true
   },
   extends: 'standard',
   overrides: [
