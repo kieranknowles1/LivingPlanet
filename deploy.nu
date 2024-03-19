@@ -36,13 +36,14 @@ def update [] {
     let fqdn = terraform output -raw fqdn
     let src_remote_path = $"/tmp/src_(random int).zip"
 
-    # Zip the source code
+    # Zip the source code. We CD first to avoid including the full path in the zip
+    let src_local_path = $"(pwd)/src.zip"
     do {
         cd src/html
-        ^zip -r ../../src.zip .
+        ^zip -r $src_local_path .
     }
     # Upload via SCP
-    scp src.zip $"azureuser@($fqdn):($src_remote_path)"
+    scp $src_local_path $"azureuser@($fqdn):($src_remote_path)"
 
     let commands = [
         "echo 'Removing the old source code'"
