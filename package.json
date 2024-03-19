@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/kieranknowles1/LivingPlanet#readme",
   "devDependencies": {
+    "@types/google-maps": "^3.2.6",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",

@@ -34,10 +34,10 @@ def update [] {
     print "You may have to enter your SSH password and/or accept the host key."
 
     let fqdn = terraform output -raw fqdn
+    let src_local_path = $"(pwd)/src.zip"
     let src_remote_path = $"/tmp/src_(random int).zip"
 
     # Zip the source code. We CD first to avoid including the full path in the zip
-    let src_local_path = $"(pwd)/src.zip"
     do {
         cd src/html
         ^zip -r $src_local_path .
