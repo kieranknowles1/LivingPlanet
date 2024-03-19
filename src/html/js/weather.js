@@ -84,8 +84,6 @@ function updatePollutantElement (id, value, qualityThresholds) {
 
 function getPollution (key, lat, lon) {
   $.getJSON(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${key}`, data => {
-    console.log(data)
-
     $('#airQualityIndex').text(data.list[0].main.aqi)
     $('#airQualityDescription').text(describeAirQuality(data.list[0].main.aqi))
 

@@ -1,6 +1,6 @@
 # Deployment script for the infrastructure
 def main [
-    --update # Download the latest source code and update the website
+    --update (-u) # Download the latest source code and update the website
 ] {
     if $update {
         update

@@ -12,6 +12,8 @@ if (file_exists("./html/$uri") && !is_dir("./html/$uri")) {
     $uri = "./html/$uri.php";
 }
 
+// Set the content type based on the file extension to make the browser happy
+// Again, a production router would need to be much more sophisticated
 if (str_ends_with($uri, '.css')) {
     header('Content-Type: text/css');
 } else if (str_ends_with($uri, '.js')) {
