@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="/images/favicon.svg">
-    <title>About</title>
-</head>
-<body>
-    <header>
-        <h1>About</h1>
-        <?php require 'components/navigation.php'; ?>
-    </header>
+---
+title: About
+---
 
+@extends('layouts.layout')
+
+@section('content')
     <section>
         <h2>Developer Information</h2>
         <p>
@@ -30,6 +22,7 @@
         </p>
         <ul>
             <li><a href="https://azure.microsoft.com/">Microsoft Azure</a> - Cloud Provider</li>
+            <li><a href="https://capro.xy2z.io">Capro</a> - Static Site Generator</li>
             <li><a href="https://code.visualstudio.com/">Visual Studio Code</a> - IDE</li>
             <li><a href="https://eslint.org/">ESLint</a> - JavaScript Linter</li>
             <li><a href="https://git-scm.com/">Git</a> - Version Control</li>
@@ -50,7 +43,6 @@
         </p>
         <ul>
             <li><a href="https://jquery.com/">jQuery 3.7.1</a> - JavaScript Library</li>
+        </ul>
     </section>
-    <?php require('components/footer.php'); ?>
-</body>
-</html>
+@endsection

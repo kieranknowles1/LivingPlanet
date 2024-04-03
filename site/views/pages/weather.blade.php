@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="/images/favicon.svg">
-    <?php require 'components/jquery.php'; ?>
-    <script src="js/weather.js" defer></script>
-    <title>Weather</title>
-</head>
-<body>
-    <h1>Weather</h1>
-    <?php require 'components/navigation.php'; ?>
+---
+title: Weather
+---
 
+@extends('layouts.layout')
+
+@section('head')
+    <script src="/js/weather.js" defer></script>
+@endsection
+
+@section('content')
     <section>
         <h2>Current Weather</h2>
         <p>Description: <span id="description"></span></p>
@@ -33,5 +29,4 @@
         <p>Particulates (2.5 µm): <span id="pm2_5"></span> µg/m³</p>
         <p>Particulates (10 µm): <span id="pm10"></span> µg/m³</p>
     </section>
-</body>
-</html>
+@endsection
