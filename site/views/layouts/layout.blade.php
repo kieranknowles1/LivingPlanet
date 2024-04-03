@@ -29,5 +29,8 @@
 		</main>
 	</body>
 
+	<footer>
+    	<p>© 2024 Kieran Knowles</p>
+	</footer>
 </html>
 
