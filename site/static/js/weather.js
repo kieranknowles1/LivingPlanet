@@ -1,10 +1,26 @@
+// I don't care about exposing this in Git, it isn't linked to any payment information
+const OPENWEATHER_KEY = 'a80e01c7ed75b3d74ba3a66bbd39c09f'
+
+const QUALITY_BG_COLORS = [
+  '#00ff00', // Good
+  '#ffff00', // Fair
+  '#ff7f00', // Moderate
+  '#ff0000', // Poor
+  '#7f00ff' // Very Poor
+]
+const QUALITY_FG_COLORS = [
+  '#000000', // Good
+  '#000000', // Fair
+  '#000000', // Moderate
+  '#ffffff', // Poor
+  '#ffffff' // Very Poor
+]
+
 jQuery(document).ready(() => {
   createAirQualityKey()
 
-  $.get('/api/getkey.php', key => {
-    getCurrentWeather(key, 55, -1.6)
-    getPollution(key, 55, -1.6)
-  })
+  getCurrentWeather(OPENWEATHER_KEY, 55, -1.6)
+  getPollution(OPENWEATHER_KEY, 55, -1.6)
 })
 
 // Describe the air quality based on the AQI
@@ -28,20 +44,6 @@ function getCurrentWeather (key, lat, lon) {
   })
 }
 
-const QUALITY_BG_COLORS = [
-  '#00ff00', // Good
-  '#ffff00', // Fair
-  '#ff7f00', // Moderate
-  '#ff0000', // Poor
-  '#7f00ff' // Very Poor
-]
-const QUALITY_FG_COLORS = [
-  '#000000', // Good
-  '#000000', // Fair
-  '#000000', // Moderate
-  '#ffffff', // Poor
-  '#ffffff' // Very Poor
-]
 /**
  * Get the air quality index for the given value and thresholds.
  * @param {number} value The value to get the air quality index for.

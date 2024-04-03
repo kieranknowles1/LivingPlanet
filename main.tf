@@ -41,10 +41,21 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg_associa
   network_security_group_id = module.network.security_group_id
 }
 
-# Zip and upload the source code to the storage account
+# Build the static site and zip it up
+resource "null_resource" "build" {
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "cd site && capro build"
+  }
+}
+
 data "archive_file" "src" {
+  depends_on = [ null_resource.build ]
   type        = "zip"
-  source_dir  = "src/html"
+  source_dir  = "site/public"
   output_path = "html.zip"
 }
 
@@ -92,7 +103,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
     username       = var.username
     domain         = module.network.fqdn
     email          = var.email
-    openweather_api_key = var.openweather_api_key
   }), "\r\n", "\n"))
 
   boot_diagnostics {
