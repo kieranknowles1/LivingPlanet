@@ -39,7 +39,7 @@ def update [] {
 
     # Zip the source code. We CD first to avoid including the full path in the zip
     do {
-        cd src/html
+        cd site/public
         ^zip -r $src_local_path .
     }
     # Upload via SCP
