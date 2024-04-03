@@ -103,7 +103,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
     username       = var.username
     domain         = module.network.fqdn
     email          = var.email
-    openweather_api_key = var.openweather_api_key
   }), "\r\n", "\n"))
 
   boot_diagnostics {
