@@ -23,10 +23,10 @@
 					<li><a href="{{ $url }}">{{ $title }}</a></li>
 				@endforeach
 			</ul>
-            <main>
-                @yield('content')
-            </main>
 		</nav>
+		<main>
+			@yield('content')
+		</main>
 	</body>
 
 </html>
