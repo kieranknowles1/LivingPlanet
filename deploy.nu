@@ -1,8 +1,13 @@
+#!/usr/bin/env nu
+
 # Deployment script for the infrastructure
 def main [
     --update (-u) # Download the latest source code and update the website
+    --destroy (-d) # Destroy the infrastructure
 ] {
-    if $update {
+    if $destroy {
+        destroy
+    } else if $update {
         update
     } else {
         deploy
@@ -56,4 +61,11 @@ def update [] {
     # This will not prompt for a password unless your SSH key is password protected
     # Run the commands and exit. Output will be streamed to the console
     ssh $"azureuser@($fqdn)" $commands
+}
+
+def destroy [] {
+    # Plan takedown
+    terraform plan -destroy -out .\main.destroy.tfplan
+    # Apply the takedown
+    terraform apply .\main.destroy.tfplan
 }

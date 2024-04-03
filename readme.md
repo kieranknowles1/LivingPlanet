@@ -57,7 +57,7 @@ account, which may result in unexpected charges.
 
 To deploy the app, run `nu deploy.nu` from the root of the repository.
 
-To take down the app, run `nu destroy.nu`. Make sure to do this when you're done to avoid any charges. It is also a good idea to set a
+To take down the app, run `nu deploy.nu --destroy`. Make sure to do this when you're done to avoid any charges. It is also a good idea to set a
 low budget alert to notify you if you spend any money.
 
 To update the app, run `nu deploy.nu --update`. This will reapply the Terraform config, and SSH into the VM to download the latest source
