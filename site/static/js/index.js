@@ -21,10 +21,25 @@ function initMap (element) {
  * @param {google.maps.Map} map
  * @param {google.maps.LatLng} position
  * @param {string} title String to display on hover
+ * @param {string?} icon URL of the icon to use for the marker
  */
-function createMarker (map, position, title) {
+function createMarker (map, position, title, icon) {
   // NOTE: This is deprecated, but Google's API is developer-hostile
-  return new google.maps.Marker({ position, map, title })
+  return new google.maps.Marker({ position, map, title, icon })
+}
+
+/**
+ * Create a marker that links to the weather page
+ * @param {google.maps.Map} map
+ * @param {google.maps.LatLng} position
+ * @param {string} title String to display on hover
+ */
+function createWeatherMarker (map, position, title) {
+  const marker = createMarker(map, position, title, 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+  marker.addListener('click', () => {
+    window.location.href = `/weather?lat=${position.lat}&lon=${position.lng}`
+  })
 }
 
 /**
@@ -64,10 +79,7 @@ function renderRoute (map, route, panel) {
 jQuery(document).ready(() => {
   const map = initMap(document.getElementById('map'))
 
-  const marker = createMarker(map, { lat: 55, lng: -1.6 }, "A point between a football field and I don't know what the other thing is for.")
-  marker.addListener('click', () => {
-    alert('This is indeed the middle of a field')
-  })
+  createWeatherMarker(map, { lat: 55, lng: -1.6 }, 'Newcastle Upon Tyne')
 
   $('#directions').on('click', async () => {
     const from = $('#from').val()
