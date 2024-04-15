@@ -38,6 +38,10 @@ def update [] {
     print "Uploading the new source code to the VM..."
     print "You may have to enter your SSH password and/or accept the host key."
 
+    cd site
+    capro build
+    cd ..
+
     let fqdn = terraform output -raw fqdn
     let src_local_path = $"(pwd)/src.zip"
     let src_remote_path = $"/tmp/src_(random int).zip"
@@ -53,7 +57,8 @@ def update [] {
     let commands = [
         "echo 'Removing the old source code'"
         "sudo rm -rf /var/www/html/*",
-        "sudo rm /var/www/html/.htaccess",
+        # Delete the .htaccess file, but don't care if it doesn't exist
+        "sudo rm /var/www/html/.htaccess || true",
         "echo 'Unzipping the new source code'"
         $"sudo unzip ($src_remote_path) -d /var/www/html"
     ] | str join " && "

@@ -109,8 +109,8 @@ You are required to provide a short (no more than 1500 word) report on the cloud
   - [ ] may want to consider something like having an icon which is geolocated onto the map for the city it relates to and
     - [ ] denotes whether air quality is good or bad for a city.
     - [ ] When the user hovers over the icon further air quality data should be provided within an info window.
-    - [ ] The air quality data can be sourced from the OpenWeather API covered on the module.
-    - [ ] Any of the air quality readings can be used to determine the air quality.
+    - [x] The air quality data can be sourced from the OpenWeather API covered on the module.
+    - [x] Any of the air quality readings can be used to determine the air quality.
     - [ ] You can discuss with your tutor how best to determine whether air quality is good or bad.
     - [ ] When the mouse moves away from the icon marker the info window should be hidden.
     - [ ] If you use any icons that you haven’t created yourself you must correctly reference these images in the About page.

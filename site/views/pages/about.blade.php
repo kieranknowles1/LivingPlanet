@@ -42,7 +42,9 @@ title: About
             front-end of this website:
         </p>
         <ul>
+            <li><a href="https://developers.google.com/maps/documentation/javascript/overview">Google Maps JavaScript API</a> - Map & all icons within the map</li>
             <li><a href="https://jquery.com/">jQuery 3.7.1</a> - JavaScript Library</li>
+            <li><a href="https://openweathermap.org/api">OpenWeatherMap API</a> - Weather and pollution data</li>
         </ul>
     </section>
 @endsection
