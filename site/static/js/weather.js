@@ -16,11 +16,48 @@ const QUALITY_FG_COLORS = [
   '#ffffff' // Very Poor
 ]
 
-jQuery(document).ready(() => {
+// Newcastle Upon Tyne
+const DEFAULT_LOCATION = {
+  lat: 55,
+  lon: -1.6
+}
+
+function getLocation () {
+  const query = new URLSearchParams(window.location.search)
+  const lat = query.get('lat')
+  const lon = query.get('lon')
+
+  if (!lat || !lon) {
+    return DEFAULT_LOCATION
+  }
+
+  return {
+    lat: parseFloat(lat),
+    lon: parseFloat(lon)
+  }
+}
+
+async function getLocationName (location) {
+  const data = await $.getJSON(`https://api.openweathermap.org/geo/1.0/reverse?lat=${location.lat}&lon=${location.lon}&limit=1&appid=${OPENWEATHER_KEY}`)
+
+  if (data.length === 0) {
+    return 'Unknown Location'
+  }
+  return data[0].name
+}
+
+jQuery(document).ready(async () => {
   createAirQualityKey()
 
-  getCurrentWeather(OPENWEATHER_KEY, 55, -1.6)
-  getPollution(OPENWEATHER_KEY, 55, -1.6)
+  const location = getLocation()
+  const locationName = await getLocationName(location)
+  console.log(locationName)
+  $('#location').text(locationName)
+  $('#lat').text(location.lat)
+  $('#lon').text(location.lon)
+
+  getCurrentWeather(OPENWEATHER_KEY, location.lat, location.lon)
+  getPollution(OPENWEATHER_KEY, location.lat, location.lon)
 })
 
 // Describe the air quality based on the AQI

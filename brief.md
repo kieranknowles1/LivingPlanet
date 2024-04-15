@@ -60,7 +60,7 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 ## Part 2: Cloud Based Web Solution (Design, development) ( 85 %)
 
 ### Element 1:
-- [ ] Cloud-based service
+- [x] Cloud-based service
 - [ ] Appropriate security
   - [ ] Support the website and third party solutions used by other elements of the assignment
   - [ ] Suitable roles and user accounts
@@ -76,10 +76,10 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 
 ### Element 2:
 - [ ] Create a website to showcase:
-  - [ ] the map
+  - [x] the map
   - [ ] weather
   - [ ] air quality
-  - [ ] The website should contain a Google map.
+  - [x] The website should contain a Google map.
   - [ ] The website should demonstrate best practice using
     - [ ] HTML5 semantic mark-up
     - [ ] CSS.
@@ -87,11 +87,11 @@ You are required to provide a short (no more than 1500 word) report on the cloud
     - [ ] indentation
     - [ ] comments should be provided to evidence understanding of the code.
   - [ ] Other best practice can be evidenced through the file structure with assets and associated files organised accordingly i.e.
-    - [ ] scripts should be separate from the main web page files
-    - [ ] styles should be stored separately and
-    - [ ] images should be stored in an images or similar folder.
-    - [ ] If you are not sure about how to structure your files you can ask your tutor how this is best done – we accept there are a number of ways to do this
-    - [ ] a flat file structure is not acceptable practice.
+    - [x] scripts should be separate from the main web page files
+    - [x] styles should be stored separately and
+    - [x] images should be stored in an images or similar folder.
+    - [x] If you are not sure about how to structure your files you can ask your tutor how this is best done – we accept there are a number of ways to do this
+    - [x] a flat file structure is not acceptable practice.
   - [ ] Whilst the use of existing CSS frameworks and templates is not discouraged you must ensure that they contain best practice HTML5 and CSS mark-up as marks will be deducted for poor practice.
   - [ ] The website should be useable and should follow reasonable usability practice in terms of
     - [ ] layout

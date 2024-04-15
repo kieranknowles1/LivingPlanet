@@ -10,7 +10,8 @@ title: Weather
 
 @section('content')
     <section>
-        <h2>Current Weather</h2>
+        <h2>Current Weather for <span id="location"></span></h2>
+        <p>Latitude: <span id="lat"></span>, Longitude: <span id="lon"></span></p>
         <p>Description: <span id="description"></span></p>
         <p>Temperature: <span id="temperature"></span>°C</p>
         <p>Wind Speed: <span id="windSpeed"></span> m/s</p>
