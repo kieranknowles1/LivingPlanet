@@ -17,6 +17,17 @@ sudo apt-get install -y \
 # mod_expires is not enabled by default and is needed to set cache headers
 sudo a2enmod expires
 
+# Cache static files for 1 year
+echo "ExpiresActive On" | sudo tee /etc/apache2/conf-available/expires.conf
+echo "ExpiresByType text/css \"access plus 1 year\"" | sudo tee -a /etc/apache2/conf-available/expires.conf
+echo "ExpiresByType text/html \"access plus 1 year\"" | sudo tee -a /etc/apache2/conf-available/expires.conf
+echo "ExpiresByType application/javascript \"access plus 1 year\"" | sudo tee -a /etc/apache2/conf-available/expires.conf
+
+sudo a2enconf expires
+
+# Apply config changes
+sudo systemctl restart apache2
+
 # Open local firewall to web traffic
 sudo ufw allow http
 sudo ufw allow https
