@@ -80,7 +80,12 @@ jQuery(document).ready(() => {
       return
     }
 
-    const route = await getDirections(from, to, method)
-    renderRoute(map, route, panel)
+    try {
+      const route = await getDirections(from, to, method)
+      renderRoute(map, route, panel)
+    } catch (e) {
+      console.error(e)
+      alert('Failed to get directions')
+    }
   })
 })
