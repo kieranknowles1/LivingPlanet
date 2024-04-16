@@ -5,7 +5,8 @@ import {
   getLocationName,
   getPollution,
   QUALITY_BG_COLORS,
-  QUALITY_FG_COLORS
+  QUALITY_FG_COLORS,
+  createAirQualityKey
 } from './modules/weatherData.mjs'
 
 // Newcastle Upon Tyne
@@ -30,7 +31,7 @@ function getQueryLocation () {
 }
 
 jQuery(document).ready(() => {
-  createAirQualityKey()
+  createAirQualityKey('#airQualityKey')
 
   const location = getQueryLocation()
   getLocationName(location).then(locationName => {
@@ -48,16 +49,6 @@ jQuery(document).ready(() => {
 
   fillPollutionSection(location.lat, location.lon)
 })
-
-// Generate a key for the pollutant elements
-// Do this in JS to ensure it uses the same colors as the pollutant elements
-function createAirQualityKey () {
-  $('#airQualityKey').append(
-    QUALITY_BG_COLORS.map((color, i) => {
-      return `<span style="background-color: ${color}; color: ${QUALITY_FG_COLORS[i]}">${describeAirQuality(i + 1)}</span>`
-    })
-  )
-}
 
 /**
  * Update the pollutant element with the given id with the given value.

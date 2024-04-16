@@ -16,6 +16,16 @@ export const QUALITY_FG_COLORS = [
   '#ffffff' // Very Poor
 ]
 
+// Generate a key for the pollutant elements
+// Do this in JS to ensure it uses the same colors as the pollutant elements
+export function createAirQualityKey (selector) {
+  $(selector).append(
+    QUALITY_BG_COLORS.map((color, i) => {
+      return `<span style="background-color: ${color}; color: ${QUALITY_FG_COLORS[i]}">${describeAirQuality(i + 1)}</span>`
+    })
+  )
+}
+
 export async function getLocationName (location) {
   const data = await $.getJSON(`https://api.openweathermap.org/geo/1.0/reverse?lat=${location.lat}&lon=${location.lon}&limit=1&appid=${OPENWEATHER_KEY}`)
 
