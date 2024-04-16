@@ -42,6 +42,17 @@ function createWeatherMarker (map, position, title) {
   })
 }
 
+function getInputs () {
+  return {
+    /** @type {string} */
+    from: $('#from').val(),
+    /** @type {string} */
+    to: $('#to').val(),
+    /** @type {google.maps.TravelMode} */
+    method: $('#method').val()
+  }
+}
+
 /**
  * Get directions from one location to another
  * @param {string} from
@@ -55,6 +66,25 @@ async function getDirections (from, to, method) {
     origin: from,
     destination: to,
     travelMode: method
+  })
+}
+
+/**
+ * Get distances from one set of locations to another
+ * @param {string[]} from
+ * @param {string[]} to
+ * @param {google.maps.TravelMode} method
+ */
+async function getDistances (from, to, method) {
+  const service = new google.maps.DistanceMatrixService()
+
+  return await service.getDistanceMatrix({
+    origins: from,
+    destinations: to,
+    travelMode: method,
+    unitSystem: google.maps.UnitSystem.METRIC,
+    avoidHighways: false,
+    avoidTolls: false
   })
 }
 
@@ -82,9 +112,7 @@ jQuery(document).ready(() => {
   createWeatherMarker(map, { lat: 55, lng: -1.6 }, 'Newcastle Upon Tyne')
 
   $('#directions').on('click', async () => {
-    const from = $('#from').val()
-    const to = $('#to').val()
-    const method = $('#method').val()
+    const { from, to, method } = getInputs()
     const panel = $('#directions-panel').get(0)
 
     if (!from || !to) {
@@ -98,6 +126,26 @@ jQuery(document).ready(() => {
     } catch (e) {
       console.error(e)
       alert('Failed to get directions')
+    }
+  })
+
+  $('#distance').on('click', async () => {
+    const { from, to, method } = getInputs()
+    const panel = $('#distance-panel').get(0)
+
+    if (!from || !to) {
+      alert('Please enter both a start and end location')
+      return
+    }
+
+    try {
+      const distance = await getDistances([
+        from, 'Newcastle Upon Tyne', 'London'
+      ], [to], method)
+      panel.innerHTML = JSON.stringify(distance, null, 2)
+    } catch (e) {
+      console.error(e)
+      alert('Failed to get distance')
     }
   })
 })

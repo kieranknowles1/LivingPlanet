@@ -15,6 +15,7 @@ title: Home
 @section('content')
 	<section>
 		<h2>Map</h2>
+		{{-- TODO: All of the navigation stuff should be removed for the final version --}}
 		<input id="from" type="text" placeholder="From" />
 		<input id="to" type="text" placeholder="To" />
 		<select id="method">
@@ -23,8 +24,10 @@ title: Home
 			<option value="BICYCLING">Cycling</option>
 			<option value="TRANSIT">Public Transport</option>
 		</select>
-		<button id="directions">Get Directions</button><br>
+		<button id="directions">Get Directions</button>
+		<button id="distance">Get Distance</button>
 		<div class="map-container" id="map"></div>
 		<div id="directions-panel"></div>
+		<div id="distance-panel"></div>
 	</section>
 @endsection
