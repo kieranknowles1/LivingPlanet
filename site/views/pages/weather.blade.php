@@ -5,7 +5,7 @@ title: Weather
 @extends('layouts.layout')
 
 @section('head')
-    <script src="/js/weather.js" defer></script>
+    <script type="module" src="/js/weather.js" defer></script>
 @endsection
 
 @section('content')
