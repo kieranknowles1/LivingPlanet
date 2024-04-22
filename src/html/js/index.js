@@ -1,3 +1,12 @@
+import {
+  getPollution,
+  getAirQualityIndex,
+  describeAirQuality,
+  QUALITY_BG_COLORS,
+  QUALITY_FG_COLORS,
+  POLLUTION_THRESHOLDS
+} from './modules/weatherData.mjs'
+
 /**
  * Initialize the map as a child of the given element
  * @param {HTMLElement} element
@@ -105,6 +114,70 @@ function renderRoute (map, route, panel) {
   directionsRenderer.setPanel(panel)
 }
 
+/**
+ * Create a paragraph element with the given text content
+ * @param {string} text
+ */
+function createParagraph (text) {
+  const p = document.createElement('p')
+  p.textContent = text
+  return p
+}
+
+/**
+ * Create an element for a pollutant with the given name, value and thresholds
+ * @param {string} name The user-friendly name of the pollutant
+ * @param {number} value The value of the pollutant in µg/m³
+ * @param {number[]?} thresholds The thresholds for the air quality index. If not provided, the pollutant will not be considered for the AQI.
+ * @returns {Element}
+ */
+function createPollutantElement (name, value, thresholds) {
+  const div = createParagraph(`${name}: ${value} µg/m³`)
+
+  if (thresholds) {
+    const quality = getAirQualityIndex(value, thresholds)
+    div.style.backgroundColor = QUALITY_BG_COLORS[quality]
+    div.style.color = QUALITY_FG_COLORS[quality]
+  }
+
+  return div
+}
+
+/**
+ * Generate the content for an info window showing pollution data.
+ * The element will be appended with the data once it is fetched, or an error message if it fails.
+ * @param {google.maps.LatLng} latLng
+ * @returns {Element}
+ */
+function generateInfoWindow (latLng) {
+  const div = document.createElement('div')
+  div.className = 'info-window'
+  // Show lat and lng to 2 decimal places
+  div.appendChild(createParagraph(`Lat: ${latLng.lat().toFixed(2)}, Lng: ${latLng.lng().toFixed(2)}`))
+
+  // TODO: Add key, maybe remove weather page with how complete the info window is
+
+  getPollution(latLng.lat(), latLng.lng()).then(pollution => {
+    const aqi = pollution.list[0].main.aqi
+    div.appendChild(div.appendChild(createParagraph(`Index: ${aqi} (${describeAirQuality(aqi)})`)))
+    div.appendChild(createPollutantElement('Carbon Monoxide', pollution.list[0].components.co, POLLUTION_THRESHOLDS.co))
+    div.appendChild(createPollutantElement('Nitrogen Monoxide', pollution.list[0].components.no))
+    div.appendChild(createPollutantElement('Nitrogen Dioxide', pollution.list[0].components.no2, POLLUTION_THRESHOLDS.no2))
+    div.appendChild(createPollutantElement('Ozone', pollution.list[0].components.o3, POLLUTION_THRESHOLDS.o3))
+    div.appendChild(createPollutantElement('Sulfur Dioxide', pollution.list[0].components.so2, POLLUTION_THRESHOLDS.so2))
+    div.appendChild(createPollutantElement('Ammonia', pollution.list[0].components.nh3))
+    div.appendChild(createPollutantElement('Particulates (2.5 µm)', pollution.list[0].components.pm2_5, POLLUTION_THRESHOLDS.pm2_5))
+    div.appendChild(createPollutantElement('Particulates (10 µm)', pollution.list[0].components.pm10, POLLUTION_THRESHOLDS.pm10))
+  }).catch(e => {
+    console.error(e)
+    div.appendChild(createParagraph('Failed to get pollution data'))
+  })
+
+  return div
+}
+
+// This must be global so that the Maps API can call it
+// As this script is loaded with type="module", we have to assign it to the window
 window.onMapsLoaded = () => {
   const map = initMap(document.getElementById('map'))
 
@@ -115,7 +188,7 @@ window.onMapsLoaded = () => {
       info.close()
     }
     info = new google.maps.InfoWindow({
-      content: `Lat: ${event.latLng.lat()}<br>Lng: ${event.latLng.lng()}`
+      content: generateInfoWindow(event.latLng)
     })
 
     info.setPosition(event.latLng)

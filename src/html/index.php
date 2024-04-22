@@ -9,7 +9,7 @@
     <?php require 'components/jquery.php'; ?>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk0ovRwzRYtQfLcraqO5rGM3-adTsGTnM&callback=console.debug&libraries=maps,marker&v=3.56&loading=async&callback=onMapsLoaded">
     </script>
-    <script src="js/index.js" defer></script>
+    <script type="module" src="js/index.js" defer></script>
     <title>Living Planet</title>
 </head>
 <body>

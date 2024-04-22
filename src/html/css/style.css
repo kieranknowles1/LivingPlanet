@@ -31,3 +31,8 @@ footer {
 gmp-map {
     height: 100%;
 }
+
+/* Use a smaller margin for the info window to save space */
+.info-window p {
+    margin: 4px;
+}
