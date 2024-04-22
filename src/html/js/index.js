@@ -108,6 +108,20 @@ function renderRoute (map, route, panel) {
 window.onMapsLoaded = () => {
   const map = initMap(document.getElementById('map'))
 
+  /** @type {google.maps.InfoWindow} */
+  let info
+  map.addListener('click', event => {
+    if (info) { // Close any existing info window
+      info.close()
+    }
+    info = new google.maps.InfoWindow({
+      content: `Lat: ${event.latLng.lat()}<br>Lng: ${event.latLng.lng()}`
+    })
+
+    info.setPosition(event.latLng)
+    info.open(map)
+  })
+
   createWeatherMarker(map, { lat: 55, lng: -1.6 }, 'Newcastle Upon Tyne')
 
   $('#directions').on('click', async () => {
