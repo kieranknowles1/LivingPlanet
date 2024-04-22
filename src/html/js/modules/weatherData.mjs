@@ -16,6 +16,17 @@ export const QUALITY_FG_COLORS = [
   '#ffffff' // Very Poor
 ]
 
+// The thresholds for the air quality index. AQI = qualityThresholds.MaxWhere(value >= Max). Lower is better.
+// Source: https://openweathermap.org/api/air-pollution
+export const POLLUTION_THRESHOLDS = {
+  co: [4400, 9400, 12400, 15400],
+  no2: [40, 70, 150, 200],
+  o3: [60, 100, 140, 180],
+  so2: [20, 80, 250, 350],
+  pm2_5: [10, 25, 50, 75],
+  pm10: [20, 50, 100, 200]
+}
+
 export async function getLocationName (location) {
   const data = await $.getJSON(`https://api.openweathermap.org/geo/1.0/reverse?lat=${location.lat}&lon=${location.lon}&limit=1&appid=${OPENWEATHER_KEY}`)
 

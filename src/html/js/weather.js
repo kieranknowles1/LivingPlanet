@@ -4,7 +4,8 @@ import {
   getLocationName,
   getPollution,
   QUALITY_BG_COLORS,
-  QUALITY_FG_COLORS
+  QUALITY_FG_COLORS,
+  POLLUTION_THRESHOLDS
 } from './modules/weatherData.mjs'
 
 // Newcastle Upon Tyne
@@ -30,6 +31,8 @@ function getQueryLocation () {
 
 jQuery(document).ready(() => {
   createAirQualityKey()
+
+  // TODO: Fix weather display
 
   const location = getQueryLocation()
   getLocationName(location).then(locationName => {
@@ -74,12 +77,12 @@ async function fillPollutionSection (lat, lon) {
   const components = data.list[0].components
   // Update the pollutant elements
   // Threshold sources: https://openweathermap.org/api/air-pollution
-  updatePollutantElement('co', components.co, [4400, 9400, 12400, 15400])
+  updatePollutantElement('co', components.co, POLLUTION_THRESHOLDS.co)
   $('#no').text(components.no) // Not in AQI
-  updatePollutantElement('no2', components.no2, [40, 70, 150, 200])
-  updatePollutantElement('o3', components.o3, [60, 100, 140, 180])
-  updatePollutantElement('so2', components.so2, [20, 80, 250, 350])
+  updatePollutantElement('no2', components.no2, POLLUTION_THRESHOLDS.no2)
+  updatePollutantElement('o3', components.o3, POLLUTION_THRESHOLDS.o3)
+  updatePollutantElement('so2', components.so2, POLLUTION_THRESHOLDS.so2)
   $('#nh3').text(components.nh3) // Not in AQI
-  updatePollutantElement('pm2_5', components.pm2_5, [10, 25, 50, 75])
-  updatePollutantElement('pm10', components.pm10, [20, 50, 100, 200])
+  updatePollutantElement('pm2_5', components.pm2_5, POLLUTION_THRESHOLDS.pm2_5)
+  updatePollutantElement('pm10', components.pm10, POLLUTION_THRESHOLDS.pm10)
 }
