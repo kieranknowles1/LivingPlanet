@@ -1,7 +1,6 @@
 import {
   describeAirQuality,
   getAirQualityIndex,
-  getCurrentWeather,
   getLocationName,
   getPollution,
   QUALITY_BG_COLORS,
