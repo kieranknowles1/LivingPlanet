@@ -4,6 +4,7 @@
  */
 function initMap (element) {
   return new google.maps.Map(element, {
+    mapId: element.id,
     center: { lat: 55, lng: -1.6 },
     zoom: 16,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -21,11 +22,9 @@ function initMap (element) {
  * @param {google.maps.Map} map
  * @param {google.maps.LatLng} position
  * @param {string} title String to display on hover
- * @param {string?} icon URL of the icon to use for the marker
  */
-function createMarker (map, position, title, icon) {
-  // NOTE: This is deprecated, but Google's API is developer-hostile
-  return new google.maps.Marker({ position, map, title, icon })
+function createMarker (map, position, title) {
+  return new google.maps.marker.AdvancedMarkerElement({ position, map, title })
 }
 
 /**
@@ -35,7 +34,7 @@ function createMarker (map, position, title, icon) {
  * @param {string} title String to display on hover
  */
 function createWeatherMarker (map, position, title) {
-  const marker = createMarker(map, position, title, 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+  const marker = createMarker(map, position, title)
 
   marker.addListener('click', () => {
     window.location.href = `/weather?lat=${position.lat}&lon=${position.lng}`
@@ -106,7 +105,7 @@ function renderRoute (map, route, panel) {
   directionsRenderer.setPanel(panel)
 }
 
-jQuery(document).ready(() => {
+window.onMapsLoaded = () => {
   const map = initMap(document.getElementById('map'))
 
   createWeatherMarker(map, { lat: 55, lng: -1.6 }, 'Newcastle Upon Tyne')
@@ -148,4 +147,4 @@ jQuery(document).ready(() => {
       alert('Failed to get distance')
     }
   })
-})
+}
