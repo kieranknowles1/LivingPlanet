@@ -37,3 +37,8 @@ variable "email" {
   description = "Email address to send Let's Encrypt expiration notices to"
   sensitive = true
 }
+
+variable "openweather_api_key" {
+  description = "API key for OpenWeatherMap"
+  sensitive = true
+}

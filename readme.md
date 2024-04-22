@@ -10,11 +10,7 @@ This is a cloud-based web application created for the KF6013 module, to the spec
 
 ## Implementation
 
-The site is generated using the [Capro](https://github.com/xy2z/capro) static site generator, which is written in PHP
-and uses the [Blade](https://laravel.com/docs/11.x/blade) template engine. This was chosen as it is a simple way
-of reusing parts of the page, such as the header and footer, with minimal boilerplate and runtime overhead.
-
-The cloud infrastructure is specified using the Terraform configuration language, and deployed to Azure using the Terraform CLI.
+The app is specified using the Terraform configuration language, and deployed to Azure using the Terraform CLI.
 
 It is hosted using a Standard B1s VM running Ubuntu 22.04 LTS, which can be
 hosted at no cost using a student plan.
