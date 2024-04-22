@@ -132,15 +132,15 @@ function createParagraph (text) {
  * @returns {Element}
  */
 function createPollutantElement (name, value, thresholds) {
-  const div = createParagraph(`${name}: ${value} µg/m³`)
+  const element = createParagraph(`${name}: ${value} µg/m³`)
 
   if (thresholds) {
     const quality = getAirQualityIndex(value, thresholds)
-    div.style.backgroundColor = QUALITY_BG_COLORS[quality]
-    div.style.color = QUALITY_FG_COLORS[quality]
+    element.style.backgroundColor = QUALITY_BG_COLORS[quality]
+    element.style.color = QUALITY_FG_COLORS[quality]
   }
 
-  return div
+  return element
 }
 
 /**
