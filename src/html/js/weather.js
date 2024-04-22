@@ -38,37 +38,9 @@ jQuery(document).ready(() => {
     $('#lat').text(location.lat)
     $('#lon').text(location.lon)
   })
-})
 
-const QUALITY_BG_COLORS = [
-  '#00ff00', // Good
-  '#ffff00', // Fair
-  '#ff7f00', // Moderate
-  '#ff0000', // Poor
-  '#7f00ff' // Very Poor
-]
-const QUALITY_FG_COLORS = [
-  '#000000', // Good
-  '#000000', // Fair
-  '#000000', // Moderate
-  '#ffffff', // Poor
-  '#ffffff' // Very Poor
-]
-/**
- * Get the air quality index for the given value and thresholds.
- * @param {number} value The value to get the air quality index for.
- * @param {number[]} thresholds The thresholds for the air quality index.
- */
-function getAirQualityIndex (value, thresholds) {
-  // Get the highest threshold that the value is greater than or equal to
-  for (let i = thresholds.length - 1; i >= 0; i--) {
-    if (value >= thresholds[i]) {
-      return i + 1 // +1 as the threshold is for the NEXT index
-    }
-  }
-  // Below the lowest threshold, consider the air quality good
-  return 0
-}
+  fillPollutionSection(location.lat, location.lon)
+})
 
 // Generate a key for the pollutant elements
 // Do this in JS to ensure it uses the same colors as the pollutant elements

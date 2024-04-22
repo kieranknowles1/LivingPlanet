@@ -4,6 +4,12 @@
  * Usage: php -S localhost:80 dev_router.php
  */
 $uri = $_SERVER['REQUEST_URI'];
+
+// Remove query string from URI
+if (str_contains($uri, '?')) {
+    $uri = substr($uri, 0, strpos($uri, '?'));
+}
+
 if (file_exists("./html/$uri") && !is_dir("./html/$uri")) {
     $uri = "./html/$uri";
 } else if ($uri === '/' || $uri === '') {
@@ -16,7 +22,7 @@ if (file_exists("./html/$uri") && !is_dir("./html/$uri")) {
 // Again, a production router would need to be much more sophisticated
 if (str_ends_with($uri, '.css')) {
     header('Content-Type: text/css');
-} else if (str_ends_with($uri, '.js')) {
+} else if (str_ends_with($uri, '.js') || str_ends_with($uri, '.mjs')) {
     header('Content-Type: text/javascript');
 }
 

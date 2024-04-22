@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/images/favicon.svg">
     <?php require 'components/jquery.php'; ?>
-    <script src="js/weather.js" defer></script>
+    <script type="module" src="js/weather.js" defer></script>
     <title>Weather</title>
 </head>
 <body>
