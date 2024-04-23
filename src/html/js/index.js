@@ -116,11 +116,13 @@ function renderRoute (map, route, panel) {
 }
 
 /**
- * Create a paragraph element with the given text content
+ * Create a text element with the given content, by default a paragraph
  * @param {string} text
+ * @param {string?} element Element type to create, defaults to 'p'
+ * @returns {Element}
  */
-function createParagraph (text) {
-  const p = document.createElement('p')
+function createTextElement (text, element = 'p') {
+  const p = document.createElement(element)
   p.textContent = text
   return p
 }
@@ -133,7 +135,7 @@ function createParagraph (text) {
  * @returns {Element}
  */
 function createPollutantElement (name, value, thresholds) {
-  const element = createParagraph(`${name}: ${value} µg/m³`)
+  const element = createTextElement(`${name}: ${value} µg/m³`)
 
   if (thresholds) {
     const quality = getAirQualityIndex(value, thresholds)
@@ -154,14 +156,16 @@ function generateInfoWindow (latLng) {
   const div = document.createElement('div')
   div.className = 'info-window'
   // Show lat and lng to 2 decimal places
-  div.appendChild(createParagraph(`Lat: ${latLng.lat().toFixed(2)}, Lng: ${latLng.lng().toFixed(2)}`))
-  $(div).append(createKey())
+  div.appendChild(createTextElement(`Lat: ${latLng.lat().toFixed(2)}, Lng: ${latLng.lng().toFixed(2)}`))
+  $(div).append(createKey()).append('<br>')
 
-  // TODO: Add key, maybe remove weather page with how complete the info window is
+  const infoLink = createTextElement('More Information', 'a')
+  infoLink.href = `/weather?lat=${latLng.lat()}&lon=${latLng.lng()}`
+  div.appendChild(infoLink)
 
   getPollution(latLng.lat(), latLng.lng()).then(pollution => {
     const aqi = pollution.list[0].main.aqi
-    div.appendChild(div.appendChild(createParagraph(`Index: ${aqi} (${describeAirQuality(aqi)})`)))
+    div.appendChild(div.appendChild(createTextElement(`Index: ${aqi} (${describeAirQuality(aqi)})`)))
     div.appendChild(createPollutantElement('Carbon Monoxide', pollution.list[0].components.co, POLLUTION_THRESHOLDS.co))
     div.appendChild(createPollutantElement('Nitrogen Monoxide', pollution.list[0].components.no))
     div.appendChild(createPollutantElement('Nitrogen Dioxide', pollution.list[0].components.no2, POLLUTION_THRESHOLDS.no2))
@@ -172,7 +176,7 @@ function generateInfoWindow (latLng) {
     div.appendChild(createPollutantElement('Particulates (10 µm)', pollution.list[0].components.pm10, POLLUTION_THRESHOLDS.pm10))
   }).catch(e => {
     console.error(e)
-    div.appendChild(createParagraph('Failed to get pollution data'))
+    div.appendChild(createTextElement('Failed to get pollution data'))
   })
 
   return div

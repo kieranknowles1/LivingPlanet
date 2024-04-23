@@ -1,3 +1,8 @@
+/**
+ * Functions for fetching and interpreting weather data.
+ * Used by both the main page and the weather page.
+ */
+
 // I don't care about exposing this in Git, it isn't linked to any payment information
 const OPENWEATHER_KEY = 'a80e01c7ed75b3d74ba3a66bbd39c09f'
 
