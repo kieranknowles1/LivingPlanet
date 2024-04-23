@@ -6,7 +6,8 @@ import {
   getPollution,
   QUALITY_BG_COLORS,
   QUALITY_FG_COLORS,
-  POLLUTION_THRESHOLDS
+  POLLUTION_THRESHOLDS,
+  getCurrentWeather
 } from './modules/weatherData.mjs'
 
 // Newcastle Upon Tyne
@@ -33,13 +34,17 @@ function getQueryLocation () {
 jQuery(document).ready(() => {
   $('#airQualityKey').append(createKey())
 
-  // TODO: Fix weather display
-
   const location = getQueryLocation()
   getLocationName(location).then(locationName => {
     $('#location').text(locationName)
     $('#lat').text(location.lat)
     $('#lon').text(location.lon)
+  })
+
+  getCurrentWeather(location.lat, location.lon).then(weather => {
+    $('#description').text(weather.weather[0].description)
+    $('#temperature').text(weather.main.temp)
+    $('#windSpeed').text(weather.wind.speed)
   })
 
   fillPollutionSection(location.lat, location.lon)
