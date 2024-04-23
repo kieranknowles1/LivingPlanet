@@ -54,6 +54,19 @@
             <li><a href="https://openweathermap.org/api">OpenWeatherMap API</a> - Weather and pollution data</li>
         </ul>
     </section>
+    <section>
+        <h2>Information Sources</h2>
+        <p>
+            The following sources were used to gather information for the
+            website:
+        </p>
+        <ul>
+            <li><a href="https://airindex.eea.europa.eu/AQI/index.html">European Environment Agency Air Quality Index</a>. Licensed under <a href="https://www.eea.europa.eu/en/legal-notice">CC BY 4.0</a></li>
+            <li><a href="https://www.eea.europa.eu/en/topics/in-depth/air-pollution/eow-it-affects-our-health">EEA Article on Air Pollution</a>. Licensed under <a href="https://www.eea.europa.eu/en/legal-notice">CC BY 4.0</a></li>
+            <li><a href="https://www.nhs.uk/conditions/carbon-monoxide-poisoning/">NHS Article on Carbon Monoxide Poisoning</a></li>. Licensed under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">OGL v3.0</a>
+            <li><a href="https://www.gov.uk/government/publications/ammonia-properties-incident-management-and-toxicology">UK Government Article on Ammonia</a>. Licensed under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">OGL v3.0</a>
+        <ul>
+    </section>
     <?php require('components/footer.php'); ?>
 </body>
 </html>
