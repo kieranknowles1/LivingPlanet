@@ -10,10 +10,10 @@ import {
   getCurrentWeather
 } from './modules/weatherData.mjs'
 
-// Newcastle Upon Tyne
+// Ellison Place, Newcastle upon Tyne, UK
 const DEFAULT_LOCATION = {
-  lat: 55,
-  lon: -1.6
+  lat: 54.9733,
+  lon: -1.6144
 }
 
 function getQueryLocation () {

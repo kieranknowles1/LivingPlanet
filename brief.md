@@ -116,9 +116,9 @@ You are required to provide a short (no more than 1500 word) report on the cloud
     - [ ] If you use any icons that you haven’t created yourself you must correctly reference these images in the About page.
 
 ### Element 4:
-- [ ] A user should be able to select a location on the map
+- [x] A user should be able to select a location on the map
 - [ ] calculate the distance
-- [ ] get the directions between the selected location and the Living Planet HQ which are located at NE1 8ST.
+- [x] get the directions between the selected location and the Living Planet HQ which are located at NE1 8ST.
 - [ ] You should use the Google Matrix distance service and directions service to calculate the distance and directions respectively.
 
 ### Element 5:

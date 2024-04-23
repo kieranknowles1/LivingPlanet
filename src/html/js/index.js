@@ -8,6 +8,12 @@ import {
   createKey
 } from './modules/weatherData.mjs'
 
+// Ellison Place, Newcastle upon Tyne, UK
+const DEFAULT_LOCATION = {
+  lat: 54.9733,
+  lng: -1.6144
+}
+
 /**
  * Initialize the map as a child of the given element
  * @param {HTMLElement} element
@@ -15,7 +21,7 @@ import {
 function initMap (element) {
   return new google.maps.Map(element, {
     mapId: element.id,
-    center: { lat: 55, lng: -1.6 },
+    center: DEFAULT_LOCATION,
     zoom: 16,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     streetViewControl: false,
@@ -51,21 +57,10 @@ function createWeatherMarker (map, position, title) {
   })
 }
 
-function getInputs () {
-  return {
-    /** @type {string} */
-    from: $('#from').val(),
-    /** @type {string} */
-    to: $('#to').val(),
-    /** @type {google.maps.TravelMode} */
-    method: $('#method').val()
-  }
-}
-
 /**
  * Get directions from one location to another
- * @param {string} from
- * @param {string} to
+ * @param {string|google.maps.LatLng} from
+ * @param {string|google.maps.LatLngLiteral} to
  * @param {google.maps.TravelMode} method
  */
 async function getDirections (from, to, method) {
@@ -146,13 +141,18 @@ function createPollutantElement (name, value, thresholds) {
   return element
 }
 
+async function onDirectionsClick (map, latLng) {
+  const directions = await getDirections(latLng, DEFAULT_LOCATION, google.maps.TravelMode.DRIVING)
+  renderRoute(map, directions, document.getElementById('directions-panel'))
+}
+
 /**
  * Generate the content for an info window showing pollution data.
  * The element will be appended with the data once it is fetched, or an error message if it fails.
  * @param {google.maps.LatLng} latLng
  * @returns {Element}
  */
-function generateInfoWindow (latLng) {
+function generateInfoWindow (map, latLng) {
   const div = document.createElement('div')
   div.className = 'info-window'
   // Show lat and lng to 2 decimal places
@@ -162,6 +162,12 @@ function generateInfoWindow (latLng) {
   const infoLink = createTextElement('More Information', 'a')
   infoLink.href = `/weather?lat=${latLng.lat()}&lon=${latLng.lng()}`
   div.appendChild(infoLink)
+
+  const directionsButton = createTextElement('Directions to HQ', 'button')
+  directionsButton.addEventListener('click', () => {
+    onDirectionsClick(map, latLng)
+  })
+  div.appendChild(directionsButton)
 
   getPollution(latLng.lat(), latLng.lng()).then(pollution => {
     const aqi = pollution.list[0].main.aqi
@@ -194,50 +200,51 @@ window.onMapsLoaded = () => {
       info.close()
     }
     info = new google.maps.InfoWindow({
-      content: generateInfoWindow(event.latLng)
+      content: generateInfoWindow(map, event.latLng)
     })
 
     info.setPosition(event.latLng)
     info.open(map)
   })
 
-  createWeatherMarker(map, { lat: 55, lng: -1.6 }, 'Newcastle Upon Tyne')
+  createWeatherMarker(map, DEFAULT_LOCATION, 'Newcastle Upon Tyne')
 
-  $('#directions').on('click', async () => {
-    const { from, to, method } = getInputs()
-    const panel = $('#directions-panel').get(0)
+  // TODO: Remove this
+  // $('#directions').on('click', async () => {
+  //   const { from, to, method } = getInputs()
+  //   const panel = $('#directions-panel').get(0)
 
-    if (!from || !to) {
-      alert('Please enter both a start and end location')
-      return
-    }
+  //   if (!from || !to) {
+  //     alert('Please enter both a start and end location')
+  //     return
+  //   }
 
-    try {
-      const route = await getDirections(from, to, method)
-      renderRoute(map, route, panel)
-    } catch (e) {
-      console.error(e)
-      alert('Failed to get directions')
-    }
-  })
+  //   try {
+  //     const route = await getDirections(from, to, method)
+  //     renderRoute(map, route, panel)
+  //   } catch (e) {
+  //     console.error(e)
+  //     alert('Failed to get directions')
+  //   }
+  // })
 
-  $('#distance').on('click', async () => {
-    const { from, to, method } = getInputs()
-    const panel = $('#distance-panel').get(0)
+  // $('#distance').on('click', async () => {
+  //   const { from, to, method } = getInputs()
+  //   const panel = $('#distance-panel').get(0)
 
-    if (!from || !to) {
-      alert('Please enter both a start and end location')
-      return
-    }
+  //   if (!from || !to) {
+  //     alert('Please enter both a start and end location')
+  //     return
+  //   }
 
-    try {
-      const distance = await getDistances([
-        from, 'Newcastle Upon Tyne', 'London'
-      ], [to], method)
-      panel.innerHTML = JSON.stringify(distance, null, 2)
-    } catch (e) {
-      console.error(e)
-      alert('Failed to get distance')
-    }
-  })
+  //   try {
+  //     const distance = await getDistances([
+  //       from, 'Newcastle Upon Tyne', 'London'
+  //     ], [to], method)
+  //     panel.innerHTML = JSON.stringify(distance, null, 2)
+  //   } catch (e) {
+  //     console.error(e)
+  //     alert('Failed to get distance')
+  //   }
+  // })
 }
