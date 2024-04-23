@@ -16,6 +16,15 @@ export const QUALITY_FG_COLORS = [
   '#ffffff' // Very Poor
 ]
 
+/**
+ * Generate the HTML for a key showing the air quality index colors.
+ */
+export function createKey () {
+  return QUALITY_BG_COLORS.map((color, i) => {
+    return `<span style="background-color: ${color}; color: ${QUALITY_FG_COLORS[i]}">${describeAirQuality(i + 1)}</span>`
+  })
+}
+
 // The thresholds for the air quality index. AQI = qualityThresholds.MaxWhere(value >= Max). Lower is better.
 // Source: https://openweathermap.org/api/air-pollution
 export const POLLUTION_THRESHOLDS = {

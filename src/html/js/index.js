@@ -4,7 +4,8 @@ import {
   describeAirQuality,
   QUALITY_BG_COLORS,
   QUALITY_FG_COLORS,
-  POLLUTION_THRESHOLDS
+  POLLUTION_THRESHOLDS,
+  createKey
 } from './modules/weatherData.mjs'
 
 /**
@@ -154,6 +155,7 @@ function generateInfoWindow (latLng) {
   div.className = 'info-window'
   // Show lat and lng to 2 decimal places
   div.appendChild(createParagraph(`Lat: ${latLng.lat().toFixed(2)}, Lng: ${latLng.lng().toFixed(2)}`))
+  $(div).append(createKey())
 
   // TODO: Add key, maybe remove weather page with how complete the info window is
 
