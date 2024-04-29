@@ -18,11 +18,6 @@ variable "domain_name" {
   default = "livingplanet"
 }
 
-variable "vm_size" {
-  description = "Size of the VM. A student account can host a single Standard_B1s VM for free"
-  default = "Standard_B1s"
-}
-
 variable "username" {
   description = "Username for the VM"
   default = "azureuser"
@@ -41,4 +36,22 @@ variable "email" {
 variable "openweather_api_key" {
   description = "API key for OpenWeatherMap"
   sensitive = true
+}
+
+# VM configuration
+# Defaults are covered by the student free tier
+# A smaller VM will be cheaper, but is not covered by the free tier
+variable "vm_size" {
+  description = "Size of the VM. A student account can host a single Standard_B1s VM for free"
+  default = "Standard_B1s"
+}
+
+variable "vm_disk_type" {
+  description = "Type of disk to use for the VM"
+  default = "Premium_LRS"
+}
+
+variable "vm_disk_size" {
+  description = "Size of the VM disk in GB"
+  default = 64
 }

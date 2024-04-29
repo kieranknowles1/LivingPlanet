@@ -76,7 +76,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   os_disk {
     caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+    storage_account_type = var.vm_disk_type
+    disk_size_gb         = var.vm_disk_size
   }
 
   source_image_reference {
@@ -88,10 +89,10 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   user_data = base64encode(replace(templatefile("./userdata.tftpl", {
-    src_blob_url   = azurerm_storage_blob.html.id
-    username       = var.username
-    domain         = module.network.fqdn
-    email          = var.email
+    src_blob_url        = azurerm_storage_blob.html.id
+    username            = var.username
+    domain              = module.network.fqdn
+    email               = var.email
     openweather_api_key = var.openweather_api_key
   }), "\r\n", "\n"))
 
