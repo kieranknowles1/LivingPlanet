@@ -1,5 +1,36 @@
+<?php
+/**
+ * @author Kieran Knowles
+ * Based on week 11 workshop code by Kay Rogage
+ * and the readme from https://github.com/googleapis/google-api-php-client
+ */
+
+// Configure autoloading for any composer dependencies
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Track user session between requests
+session_start();
+
+$client = new Google\Client();
+$client->setAuthConfig('client_secrets.json');
+
+// Check if the user is already logged in
+$token = $_SESSION['access_token'] ?? null;
+if ($token) {
+    $client->setAccessToken($token);
+} else {
+    // If not, redirect to the callback URL which handles the OAuth flow
+    $callback = filter_var("http://$_SERVER[HTTP_HOST]/oauth2callback.php", FILTER_SANITIZE_URL);
+    header("Location: " . $callback);
+
+    // Exit early so we don't return the rest of the page
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +38,19 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/images/favicon.svg">
 </head>
+
 <body>
     <header>
         <h1>Login</h1>
         <?php require 'components/navigation.php'; ?>
     </header>
 
+    <!-- TODO: Logout button -->
+
     <section>
         <h2>What is OAuth?</h2>
     </section>
-    <?php require('components/footer.php'); ?>
+    <?php require ('components/footer.php'); ?>
 </body>
+
 </html>

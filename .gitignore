@@ -4,6 +4,9 @@
 node_modules/
 vendor/
 
+# See also: .htaccess
+src/html/client_secrets.json
+
 # Generated during deploy
 graph.dot
 

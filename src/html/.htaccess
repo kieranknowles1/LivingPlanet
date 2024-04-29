@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Forbid access to sensitive files
+RewriteRule client_secrets.json - [F]
+# Components is forbidden as well by its own .htaccess
+
 # Implicitly add .php to the end of URLs
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
