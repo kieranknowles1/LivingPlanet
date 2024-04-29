@@ -58,6 +58,13 @@ wget -O /tmp/src.zip "${src_blob_url}"
 sudo rm -rf /var/www/html/*
 sudo unzip /tmp/src.zip -d /var/www/html
 
+# Install PHP dependencies and get rid of files we no longer need
+(
+    cd /var/www/html
+    composer install
+    rm composer.json composer.lock
+)
+
 # Give Apache ownership of all public files
 sudo chown -R "$APACHE_USER:$APACHE_USER" /var/www/html
 

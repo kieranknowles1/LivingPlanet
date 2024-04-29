@@ -38,10 +38,6 @@ def update [] {
     print "Uploading the new source code to the VM..."
     print "You may have to enter your SSH password and/or accept the host key."
 
-    cd site
-    capro build
-    cd ..
-
     let fqdn = terraform output -raw fqdn
     let src_local_path = $"(pwd)/src.zip"
     let src_remote_path = $"/tmp/src_(random int).zip"
@@ -49,11 +45,13 @@ def update [] {
     # Zip the source code. We CD first to avoid including the full path in the zip
     do {
         cd src/html
-        ^zip -r $src_local_path .
+        ^zip -r $src_local_path . -x "vendor/*"
     }
     # Upload via SCP
     scp $src_local_path $"azureuser@($fqdn):($src_remote_path)"
 
+    # /var/www/html is owned by www-data, but we are running as azureuser
+    # So we neet to run everything as root then give ownership back to www-data
     let commands = [
         "echo 'Removing the old source code'"
         "sudo rm -rf /var/www/html/*",
@@ -61,6 +59,11 @@ def update [] {
         "sudo rm /var/www/html/.htaccess || true",
         "echo 'Unzipping the new source code'"
         $"sudo unzip ($src_remote_path) -d /var/www/html"
+        "echo 'Installing dependencies'"
+        "cd /var/www/html"
+        "sudo composer install"
+        "echo 'Setting permissions'"
+        "sudo chown -R www-data:www-data /var/www/html"
     ] | str join " && "
 
     # This will not prompt for a password unless your SSH key is password protected

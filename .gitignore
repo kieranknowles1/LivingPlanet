@@ -2,6 +2,7 @@
 *.zip
 
 node_modules/
+vendor/
 
 # Generated during deploy
 graph.dot

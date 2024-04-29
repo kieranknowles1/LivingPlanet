@@ -46,6 +46,8 @@ data "archive_file" "src" {
   type        = "zip"
   source_dir  = "src/html"
   output_path = "html.zip"
+  # Exclude the vendor directory. This will be installed by the VM
+  excludes = [ "vendor" ]
 }
 
 # Blob containing the zippped source code. The ID of the resource is the URL to the blob
