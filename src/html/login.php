@@ -27,6 +27,19 @@ if ($token) {
     // Exit early so we don't return the rest of the page
     exit();
 }
+
+
+$signOutRequest = $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['signOut'] ?? false);
+if ($signOutRequest) {
+    // Revoke the token
+    $client->revokeToken();
+    // Clear the session
+    session_destroy();
+    // Redirect to the home page
+    header("Location: /");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +59,15 @@ if ($token) {
         <?php require 'components/navigation.php'; ?>
     </header>
 
-    <!-- TODO: Logout button -->
-
     <section>
         <h2>What is OAuth?</h2>
     </section>
+
+    <form method="post">
+        <!-- This will make a POST request to this page with signOut=true -->
+        <button type="submit" name="signOut" value="true">Sign Out</button>
+    </form>
+
     <?php require ('components/footer.php'); ?>
 </body>
 

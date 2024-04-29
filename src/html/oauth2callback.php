@@ -27,9 +27,11 @@ if ($code !== null) {
     $client->authenticate($code);
     $_SESSION['access_token'] = $client->getAccessToken();
     // Redirect back to the login page
-    header("Location: /login.php");
+    // A more sophisticated app could track the page the login was initiated from, and redirect back there
+    header("Location: /login");
 } else {
     // We don't have an auth code, go to oauth2 login
+    // The login will redirect back to this page with an auth code that we can exchange for an access token
     $auth_url = $client->createAuthUrl();
     header("Location: " . filter_var($auth_url, FILTER_SANITIZE_URL));
 }
