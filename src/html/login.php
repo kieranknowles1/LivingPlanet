@@ -12,7 +12,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 session_start();
 
 $client = new Google\Client();
-$client->setAuthConfig('client_secrets.json');
+$client->setAuthConfig(__DIR__ . '/client_secrets.json');
 
 // Check if the user is already logged in
 $token = $_SESSION['access_token'] ?? null;
@@ -20,7 +20,8 @@ if ($token) {
     $client->setAccessToken($token);
 } else {
     // If not, redirect to the callback URL which handles the OAuth flow
-    $callback = filter_var("http://$_SERVER[HTTP_HOST]/oauth2callback.php", FILTER_SANITIZE_URL);
+    $host = $_SERVER['HTTP_HOST'];
+    $callback = filter_var("http://$host/oauth2callback", FILTER_SANITIZE_URL);
     header("Location: " . $callback);
 
     // Exit early so we don't return the rest of the page

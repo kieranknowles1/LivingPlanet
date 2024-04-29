@@ -47,6 +47,10 @@ To deploy the app, you must have the following available and on your PATH:
 - [Nushell](https://www.nushell.sh/install.html) (optional, scripts can be run manually)
 - [Terraform CLI](https://www.terraform.io/downloads.html)
 
+The client secrets for Oauth2 are stored in `src/html/client_secrets.json`. These are sensitive, and therefore
+not tracked by Git and access is forbidden by the `.htaccess` file. This must allow using the redirect URI
+`https://$host/oauth2callback.php`.
+
 You must also be logged in to the Azure CLI using `az login`. Please avoid
 doing this on a shared machine as it will allow others to access your Azure
 account, which may result in unexpected charges.
