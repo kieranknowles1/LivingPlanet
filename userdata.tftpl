@@ -11,6 +11,7 @@ set -eu -o pipefail
 
 sudo apt-get update
 sudo apt-get install -y \
+    composer \
     unzip \
     apache2 \
     php php-gd \
@@ -61,8 +62,8 @@ sudo unzip /tmp/src.zip -d /var/www/html
 # Install PHP dependencies and get rid of files we no longer need
 (
     cd /var/www/html
-    composer install
-    rm composer.json composer.lock
+    sudo composer install
+    sudo rm composer.json composer.lock
 )
 
 # Give Apache ownership of all public files
