@@ -25,7 +25,6 @@ function initMap (element) {
     zoom: 16,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     streetViewControl: false,
-    mapTypeControl: false,
     rotateControl: false,
     scaleControl: false,
     zoomControl: false,
