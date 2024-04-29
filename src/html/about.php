@@ -69,6 +69,16 @@
             <li><a href="https://www.gov.uk/government/publications/ammonia-properties-incident-management-and-toxicology">UK Government Article on Ammonia</a>. Licensed under <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">OGL v3.0</a>
         <ul>
     </section>
+    <section>
+        <h2>External Assets</h2>
+        <p>
+            The following external assets were used in the creation of this
+            website:
+        </p>
+        <ul>
+            <li>Favicon - Uses the 🌍 emoji from your browser's default font</li>
+        </ul>
+    </section>
     <?php require('components/footer.php'); ?>
 </body>
 </html>

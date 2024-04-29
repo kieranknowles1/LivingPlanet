@@ -22,7 +22,7 @@ function initMap (element) {
   return new google.maps.Map(element, {
     mapId: element.id,
     center: DEFAULT_LOCATION,
-    zoom: 16,
+    zoom: 6,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     streetViewControl: false,
     rotateControl: false,
@@ -69,25 +69,6 @@ async function getDirections (from, to, method) {
     origin: from,
     destination: to,
     travelMode: method
-  })
-}
-
-/**
- * Get distances from one set of locations to another
- * @param {string[]} from
- * @param {string[]} to
- * @param {google.maps.TravelMode} method
- */
-async function getDistances (from, to, method) {
-  const service = new google.maps.DistanceMatrixService()
-
-  return await service.getDistanceMatrix({
-    origins: from,
-    destinations: to,
-    travelMode: method,
-    unitSystem: google.maps.UnitSystem.METRIC,
-    avoidHighways: false,
-    avoidTolls: false
   })
 }
 
@@ -168,6 +149,8 @@ function generateInfoWindow (map, latLng) {
   })
   div.appendChild(directionsButton)
 
+  // TODO: Add weather data. Probably want to fetch this in parallel and use Promise.all
+
   getPollution(latLng.lat(), latLng.lng()).then(pollution => {
     const aqi = pollution.list[0].main.aqi
     div.appendChild(div.appendChild(createTextElement(`Index: ${aqi} (${describeAirQuality(aqi)})`)))
@@ -206,44 +189,13 @@ window.onMapsLoaded = () => {
     info.open(map)
   })
 
+  // Create markers for a few UK cities by default
   createWeatherMarker(map, DEFAULT_LOCATION, 'Newcastle Upon Tyne')
-
-  // TODO: Remove this
-  // $('#directions').on('click', async () => {
-  //   const { from, to, method } = getInputs()
-  //   const panel = $('#directions-panel').get(0)
-
-  //   if (!from || !to) {
-  //     alert('Please enter both a start and end location')
-  //     return
-  //   }
-
-  //   try {
-  //     const route = await getDirections(from, to, method)
-  //     renderRoute(map, route, panel)
-  //   } catch (e) {
-  //     console.error(e)
-  //     alert('Failed to get directions')
-  //   }
-  // })
-
-  // $('#distance').on('click', async () => {
-  //   const { from, to, method } = getInputs()
-  //   const panel = $('#distance-panel').get(0)
-
-  //   if (!from || !to) {
-  //     alert('Please enter both a start and end location')
-  //     return
-  //   }
-
-  //   try {
-  //     const distance = await getDistances([
-  //       from, 'Newcastle Upon Tyne', 'London'
-  //     ], [to], method)
-  //     panel.innerHTML = JSON.stringify(distance, null, 2)
-  //   } catch (e) {
-  //     console.error(e)
-  //     alert('Failed to get distance')
-  //   }
-  // })
+  createWeatherMarker(map, { lat: 51.4545, lng: -2.5879 }, 'Bristol')
+  createWeatherMarker(map, { lat: 51.5074, lng: -0.1278 }, 'London')
+  createWeatherMarker(map, { lat: 51.6214, lng: -3.9436 }, 'Swansea')
+  createWeatherMarker(map, { lat: 53.4084, lng: -2.9916 }, 'Manchester')
+  createWeatherMarker(map, { lat: 53.5228, lng: -1.1285 }, 'Penistone')
+  createWeatherMarker(map, { lat: 54.6606, lng: -3.3718 }, 'Cockermouth')
+  createWeatherMarker(map, { lat: 55.9533, lng: -3.1883 }, 'Edinburgh')
 }

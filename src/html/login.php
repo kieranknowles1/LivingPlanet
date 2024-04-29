@@ -34,7 +34,8 @@ if ($token !== null) {
     exit();
 }
 
-
+// Signing out triggers a POST request to this page with signOut=true
+// We can then revoke the token with Google, and clear server-side session data
 $signOutRequest = $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['signOut'] ?? false);
 if ($signOutRequest) {
     // Revoke the token
@@ -46,7 +47,7 @@ if ($signOutRequest) {
     exit();
 }
 
-// Get the user's email address
+// Get the user's email address. This is one of the scopes we requested
 $service = new Google\Service\Oauth2($client);
 $email = $service->userinfo->get()->email;
 

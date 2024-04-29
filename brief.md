@@ -37,8 +37,8 @@ Your organisation does not own a data centre or server for hosting client soluti
   - [ ] That is you may deploy your code on a web app, virtual machine or some other service and it should work without changes to the underlying source code.
   - [ ] Your cloud solution should be appropriately protected against common security issues.
   - [ ] You are expected to use the tools and technologies covered in the module.
-  - [ ] That is, you should use PHP for your server-side code and jQuery for client-side programming.
-  - [ ] We know there are alternative frameworks available, but these core technologies demonstrate your fundamental understanding of the technologies that underpin many modern frameworks.
+  - [x] That is, you should use PHP for your server-side code and jQuery for client-side programming.
+  - [x] We know there are alternative frameworks available, but these core technologies demonstrate your fundamental understanding of the technologies that underpin many modern frameworks.
 
 ## Part 1: Cloud Services Research Report (Research) (15%)
 
@@ -78,25 +78,25 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 - [ ] Create a website to showcase:
   - [x] the map
   - [ ] weather
-  - [ ] air quality
+  - [x] air quality
   - [x] The website should contain a Google map.
   - [ ] The website should demonstrate best practice using
     - [ ] HTML5 semantic mark-up
     - [ ] CSS.
-  - [ ] Coding should be structured well using
-    - [ ] indentation
-    - [ ] comments should be provided to evidence understanding of the code.
+  - [x] Coding should be structured well using
+    - [x] indentation
+    - [x] comments should be provided to evidence understanding of the code.
   - [ ] Other best practice can be evidenced through the file structure with assets and associated files organised accordingly i.e.
     - [x] scripts should be separate from the main web page files
     - [x] styles should be stored separately and
     - [x] images should be stored in an images or similar folder.
     - [x] If you are not sure about how to structure your files you can ask your tutor how this is best done – we accept there are a number of ways to do this
     - [x] a flat file structure is not acceptable practice.
-  - [ ] Whilst the use of existing CSS frameworks and templates is not discouraged you must ensure that they contain best practice HTML5 and CSS mark-up as marks will be deducted for poor practice.
-  - [ ] The website should be useable and should follow reasonable usability practice in terms of
-    - [ ] layout
-    - [ ] navigation
-    - [ ] presentation.
+  - [x] Whilst the use of existing CSS frameworks and templates is not discouraged you must ensure that they contain best practice HTML5 and CSS mark-up as marks will be deducted for poor practice.
+  - [x] The website should be useable and should follow reasonable usability practice in terms of
+    - [x] layout
+    - [x] navigation
+    - [x] presentation.
   - [ ] Whilst we don’t cover web design or usability best practice you should have covered this in previous modules.
     - [ ] You may want to refer to the Nielson Norman Group for guidance on usability best practice (https://www.nngroup.com/topic/web-usability);
     - [ ] W3C also have some practical guidance on how you can make your website accessible and therefore useable (https://www.w3.org/TR/WCAG21/).
@@ -105,15 +105,15 @@ You are required to provide a short (no more than 1500 word) report on the cloud
   - [ ] You will not receive any marks for code directly copied and pasted from the workshops – if you are unsure about this please speak to the tutor.
 
 ### Element 3:
-- [ ] You should display air quality data for each city on the map. How you do this is up to you,
-  - [ ] may want to consider something like having an icon which is geolocated onto the map for the city it relates to and
+- [x] You should display air quality data for each city on the map. How you do this is up to you,
+  - [x] may want to consider something like having an icon which is geolocated onto the map for the city it relates to and
     - [x] denotes whether air quality is good or bad for a city.
     - [x] When the user hovers over the icon further air quality data should be provided within an info window.
     - [x] The air quality data can be sourced from the OpenWeather API covered on the module.
     - [x] Any of the air quality readings can be used to determine the air quality.
     - [x] You can discuss with your tutor how best to determine whether air quality is good or bad.
-    - [ ] When the mouse moves away from the icon marker the info window should be hidden.
-    - [ ] If you use any icons that you haven’t created yourself you must correctly reference these images in the About page.
+    - [x] When the mouse moves away from the icon marker the info window should be hidden.
+    - [x] If you use any icons that you haven’t created yourself you must correctly reference these images in the About page.
 
 ### Element 4:
 - [x] A user should be able to select a location on the map
@@ -135,7 +135,7 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 ### Element 6:
 - [ ] Display weather forecast for Living Planet HQ by default on the homepage.
 - [ ] Selecting a location on the map should update the forecast to contain the local weather for the geolocation of the selected location.
-- [ ] Use any open weather API to access weather data.
+- [x] Use any open weather API to access weather data.
 
 
 # Marking scheme
