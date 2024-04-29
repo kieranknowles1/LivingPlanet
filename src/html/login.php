@@ -16,13 +16,19 @@ $client->setAuthConfig(__DIR__ . '/client_secrets.json');
 
 // Check if the user is already logged in
 $token = $_SESSION['access_token'] ?? null;
-if ($token) {
+if ($token !== null) {
     $client->setAccessToken($token);
 } else {
-    // If not, redirect to the callback URL which handles the OAuth flow
+    // If not logged in, go to OAuth to log in
     $host = $_SERVER['HTTP_HOST'];
-    $callback = filter_var("http://$host/oauth2callback", FILTER_SANITIZE_URL);
-    header("Location: " . $callback);
+    $callback = "https://$host/oauth2callback.php";
+    $client->setRedirectUri($callback);
+
+    // We only need the user's email address
+    $client->addScope('https://www.googleapis.com/auth/userinfo.email');
+
+    $authUrl = $client->createAuthUrl();
+    header("Location: " . filter_var($authUrl, FILTER_SANITIZE_URL));
 
     // Exit early so we don't return the rest of the page
     exit();
@@ -39,6 +45,10 @@ if ($signOutRequest) {
     header("Location: /");
     exit();
 }
+
+// Get the user's email address
+$service = new Google\Service\Oauth2($client);
+$email = $service->userinfo->get()->email;
 
 ?>
 
@@ -61,6 +71,15 @@ if ($signOutRequest) {
 
     <section>
         <h2>What is OAuth?</h2>
+        <p>
+            OAuth allows users to grant a site such as this one access to parts
+            of their accounts with external services without sharing their passwords.
+
+            This is done by redirecting to a service's login page, which then sends the
+            user back to the site with a code that can be used to create a token and
+            access the data that was allowed, such as your email address, which is
+            <strong><?php echo $email; ?></strong>.
+        </p>
     </section>
 
     <form method="post">

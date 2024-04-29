@@ -122,12 +122,12 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 - [ ] You should use the Google Matrix distance service and directions service to calculate the distance and directions respectively.
 
 ### Element 5:
-- [ ] You will create a web page that demonstrates implementation of the Google OAuth functionality.
+- [x] You will create a web page that demonstrates implementation of the Google OAuth functionality.
 - [ ] The page will provide a short description of the OAuth process and how it allows you to authenticate users to access certain elements of your website.
-- [ ] The OAuth page should only be accessible when a user has authorised access to the page through the OAuth protocol.
+- [x] The OAuth page should only be accessible when a user has authorised access to the page through the OAuth protocol.
 - [ ] Your application should be registered with Google and authorised using the OAuth protocol.
-- [ ] Users not signed into Google will need to sign in to Google, and then authorise the app (application).
-- [ ] Users who are logged in to Google should be able to use your page directly, although they will still need to authorise the app.
+- [x] Users not signed into Google will need to sign in to Google, and then authorise the app (application).
+- [x] Users who are logged in to Google should be able to use your page directly, although they will still need to authorise the app.
 - [ ] You should not directly copy the code from the labs for this exercise.
   - [ ] We accept that your code may be similar but only relevant code should be provided and you should write your own comments to describe what you think the code is doing.
   - [ ] If you are submitting any code that is not your own it should be properly referenced in the About page
