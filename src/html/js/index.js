@@ -117,6 +117,7 @@ function createPollutantElement (name, value, thresholds) {
     const quality = getAirQualityIndex(value, thresholds)
     element.style.backgroundColor = QUALITY_BG_COLORS[quality]
     element.style.color = QUALITY_FG_COLORS[quality]
+    element.textContent += ` (${describeAirQuality(quality + 1)})` // 1-indexed
   }
 
   return element

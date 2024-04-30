@@ -77,16 +77,16 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 ### Element 2:
 - [ ] Create a website to showcase:
   - [x] the map
-  - [ ] weather
+  - [x] weather
   - [x] air quality
   - [x] The website should contain a Google map.
-  - [ ] The website should demonstrate best practice using
-    - [ ] HTML5 semantic mark-up
-    - [ ] CSS.
+  - [x] The website should demonstrate best practice using
+    - [x] HTML5 semantic mark-up
+    - [x] CSS.
   - [x] Coding should be structured well using
     - [x] indentation
     - [x] comments should be provided to evidence understanding of the code.
-  - [ ] Other best practice can be evidenced through the file structure with assets and associated files organised accordingly i.e.
+  - [x] Other best practice can be evidenced through the file structure with assets and associated files organised accordingly i.e.
     - [x] scripts should be separate from the main web page files
     - [x] styles should be stored separately and
     - [x] images should be stored in an images or similar folder.

@@ -9,8 +9,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ $1.php [L,QSA]
 
-# Cache static files
-# During development, can do Ctrl+F5 to force full reload
+# Cache static files aggressively
+# On subsequent visits, the browser will not even ask the server for these files
+# We don't cache text/html as PHP is used to generate it. Our PHP distribution has OpCache enabled
+# by default, which sets Cache-Control: max-age=31536000 if it determines the file is static
+# During development, can do Ctrl+F5 to force full reload, ignoring cache
 ExpiresActive On
 ExpiresByType image/svg "access plus 1 year"
 ExpiresByType text/css "access plus 1 year"

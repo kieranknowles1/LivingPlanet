@@ -59,7 +59,7 @@ jQuery(document).ready(() => {
 function updatePollutantElement (id, value, qualityThresholds) {
   const quality = getAirQualityIndex(value, qualityThresholds)
   $(`#${id}`)
-    .text(value)
+    .text(value + ` (${describeAirQuality(quality + 1)})`) // 1-indexed
     .css('background-color', QUALITY_BG_COLORS[quality])
     .css('color', QUALITY_FG_COLORS[quality])
 }

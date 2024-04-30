@@ -1,17 +1,25 @@
 /**
  * Functions for fetching and interpreting weather data.
  * Used by both the main page and the weather page.
+ *
+ * By splitting this into a separate module, we can reuse the functions in both pages.
+ * It will require a second HTTP request to load the module, but this will only happen once
+ * as the server sets cache headers.
  */
 
 // I don't care about exposing this in Git, it isn't linked to any payment information
 const OPENWEATHER_KEY = 'a80e01c7ed75b3d74ba3a66bbd39c09f'
 
+// The colors for the air quality index, worse indexes use darker colors that are psychologically associated with danger
+// DO NOT rely on color alone to convey information, we use text as well for colorblind users
 export const QUALITY_BG_COLORS = [
   '#00ff00', // Good
   '#ffff00', // Fair
-  '#ff7f00', // Moderate
-  '#ff0000', // Poor
-  '#7f00ff' // Very Poor
+  '#FFB366', // Moderate
+  // Use darker shades of red/purple with white text, as these are more contrasting than the lighter shades are with any text color
+  // Needed for AAA contrast ratio. This requires 7:1 for normal text, but I'm using 10:1 for better readability.
+  '#8A0000', // Poor
+  '#5400A8' // Very Poor
 ]
 export const QUALITY_FG_COLORS = [
   '#000000', // Good
