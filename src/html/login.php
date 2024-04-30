@@ -75,11 +75,18 @@ $email = $service->userinfo->get()->email;
         <p>
             OAuth allows users to grant a site such as this one access to parts
             of their accounts with external services without sharing their passwords.
-
+        </p>
+        <p>
             This is done by redirecting to a service's login page, which then sends the
             user back to the site with a code that can be used to create a token and
             access the data that was allowed, such as your email address, which is
             <strong><?php echo $email; ?></strong>.
+        </p>
+        <p>
+            By logging in, you have consented to share this information with this site. The
+            information was specified in Google's login page. This server specifically
+            does not store any of this information, and destroys both its token and session
+            when you sign out.
         </p>
     </section>
 

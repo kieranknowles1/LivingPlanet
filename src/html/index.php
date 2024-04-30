@@ -22,9 +22,19 @@
         <?php require 'components/navigation.php'; ?>
     </header>
     <main>
-        <h2>Map</h2>
-		<div class="map-container" id="map"></div>
-		<div id="directions-panel"></div>
+        <section>
+            <h2>Map</h2>
+            <div class="map-container" id="map"></div>
+            <div id="directions-panel"></div>
+        </section>
+        <section>
+            <h2>Weather at HQ</h2>
+            <p>Ellison Place, Northumbria University, Newcastle upon Tyne, NE1 8ST</p>
+            <p>Description: <span id="description"></span></p>
+            <p>Temperature: <span id="temperature"></span>°C</p>
+            <p>Wind Speed: <span id="windSpeed"></span> m/s</p>
+        </section>
     </main>
+    <?php require 'components/footer.php'; ?>
 </body>
 </html>

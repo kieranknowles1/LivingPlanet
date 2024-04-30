@@ -219,3 +219,13 @@ window.onMapsLoaded = () => {
   createWeatherMarker(map, { lat: 54.6606, lng: -3.3718 }, 'Cockermouth')
   createWeatherMarker(map, { lat: 55.9533, lng: -3.1883 }, 'Edinburgh')
 }
+
+jQuery(document).ready(() => {
+  getCurrentWeather(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng).then(weather => {
+    $('#description').text(weather.weather[0].description)
+    $('#temperature').text(`${weather.main.temp}°C`)
+    $('#windSpeed').text(`${weather.wind.speed} m/s`)
+  }).catch(e => {
+    console.error(e)
+  })
+})
