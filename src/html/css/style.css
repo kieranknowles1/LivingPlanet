@@ -34,5 +34,5 @@ gmp-map {
 
 /* Use a smaller margin for the info window to save space */
 .info-window p {
-    margin: 4px;
+    margin: 2px;
 }

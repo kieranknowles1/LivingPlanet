@@ -1,5 +1,6 @@
 import {
   getPollution,
+  getCurrentWeather,
   getAirQualityIndex,
   describeAirQuality,
   QUALITY_BG_COLORS,
@@ -137,8 +138,10 @@ function generateInfoWindow (map, latLng) {
   div.className = 'info-window'
   // Show lat and lng to 2 decimal places
   div.appendChild(createTextElement(`Lat: ${latLng.lat().toFixed(2)}, Lng: ${latLng.lng().toFixed(2)}`))
+  // Add a key for the air quality index's colours
   $(div).append(createKey()).append('<br>')
 
+  // Link to weather page and directions side-by-side
   const infoLink = createTextElement('More Information', 'a')
   infoLink.href = `/weather?lat=${latLng.lat()}&lon=${latLng.lng()}`
   div.appendChild(infoLink)
@@ -149,22 +152,38 @@ function generateInfoWindow (map, latLng) {
   })
   div.appendChild(directionsButton)
 
-  // TODO: Add weather data. Probably want to fetch this in parallel and use Promise.all
+  // Make the containers here so we can append to them later and they will be in the correct order
+  // no matter which request finishes first
+  const weatherContainer = document.createElement('div')
+  div.appendChild(weatherContainer)
+  const pollutionContainer = document.createElement('div')
+  div.appendChild(pollutionContainer)
+
+  getCurrentWeather(latLng.lat(), latLng.lng()).then(weather => {
+    weatherContainer.appendChild(createTextElement('Weather', 'u'))
+    weatherContainer.appendChild(createTextElement(`Description: ${weather.weather[0].description}`))
+    weatherContainer.appendChild(createTextElement(`Temperature: ${weather.main.temp}°C`))
+    weatherContainer.appendChild(createTextElement(`Wind Speed: ${weather.wind.speed} m/s`))
+  }).catch(e => {
+    console.error(e)
+    weatherContainer.appendChild(createTextElement('Failed to get weather data'))
+  })
 
   getPollution(latLng.lat(), latLng.lng()).then(pollution => {
     const aqi = pollution.list[0].main.aqi
-    div.appendChild(div.appendChild(createTextElement(`Index: ${aqi} (${describeAirQuality(aqi)})`)))
-    div.appendChild(createPollutantElement('Carbon Monoxide', pollution.list[0].components.co, POLLUTION_THRESHOLDS.co))
-    div.appendChild(createPollutantElement('Nitrogen Monoxide', pollution.list[0].components.no))
-    div.appendChild(createPollutantElement('Nitrogen Dioxide', pollution.list[0].components.no2, POLLUTION_THRESHOLDS.no2))
-    div.appendChild(createPollutantElement('Ozone', pollution.list[0].components.o3, POLLUTION_THRESHOLDS.o3))
-    div.appendChild(createPollutantElement('Sulfur Dioxide', pollution.list[0].components.so2, POLLUTION_THRESHOLDS.so2))
-    div.appendChild(createPollutantElement('Ammonia', pollution.list[0].components.nh3))
-    div.appendChild(createPollutantElement('Particulates (2.5 µm)', pollution.list[0].components.pm2_5, POLLUTION_THRESHOLDS.pm2_5))
-    div.appendChild(createPollutantElement('Particulates (10 µm)', pollution.list[0].components.pm10, POLLUTION_THRESHOLDS.pm10))
+    pollutionContainer.appendChild(createTextElement('Pollution', 'u'))
+    pollutionContainer.appendChild(createTextElement(`Index: ${aqi} (${describeAirQuality(aqi)})`))
+    pollutionContainer.appendChild(createPollutantElement('Carbon Monoxide', pollution.list[0].components.co, POLLUTION_THRESHOLDS.co))
+    pollutionContainer.appendChild(createPollutantElement('Nitrogen Monoxide', pollution.list[0].components.no))
+    pollutionContainer.appendChild(createPollutantElement('Nitrogen Dioxide', pollution.list[0].components.no2, POLLUTION_THRESHOLDS.no2))
+    pollutionContainer.appendChild(createPollutantElement('Ozone', pollution.list[0].components.o3, POLLUTION_THRESHOLDS.o3))
+    pollutionContainer.appendChild(createPollutantElement('Sulfur Dioxide', pollution.list[0].components.so2, POLLUTION_THRESHOLDS.so2))
+    pollutionContainer.appendChild(createPollutantElement('Ammonia', pollution.list[0].components.nh3))
+    pollutionContainer.appendChild(createPollutantElement('Particulates (2.5 µm)', pollution.list[0].components.pm2_5, POLLUTION_THRESHOLDS.pm2_5))
+    pollutionContainer.appendChild(createPollutantElement('Particulates (10 µm)', pollution.list[0].components.pm10, POLLUTION_THRESHOLDS.pm10))
   }).catch(e => {
     console.error(e)
-    div.appendChild(createTextElement('Failed to get pollution data'))
+    pollutionContainer.appendChild(createTextElement('Failed to get pollution data'))
   })
 
   return div
