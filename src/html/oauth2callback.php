@@ -25,7 +25,7 @@ if ($code === null) {
 } else {
     // We have an auth code, get an access token
     // and store it in the session
-    $client->authenticate($code);
+    $client->fetchAccessTokenWithAuthCode($code);
     $_SESSION['access_token'] = $client->getAccessToken();
 
     // Redirect back to the login page
