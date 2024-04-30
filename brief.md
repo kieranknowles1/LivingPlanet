@@ -67,7 +67,7 @@ You are required to provide a short (no more than 1500 word) report on the cloud
     - [ ] Configuring the service
     - [ ] Uploading web files to the service
     - [ ] IAM roles
-    - [ ] Firewall security
+    - [x] Firewall security
     - [ ] where appropriate – different cloud services have different security features
     - [ ] The evidence of this element will be demonstrated via the video walkthrough of your cloud solution.
 - [ ] Evidence given in the video and the link to the URL of the solution
@@ -75,7 +75,7 @@ You are required to provide a short (no more than 1500 word) report on the cloud
   - [ ] Demonstrate any security embedded into the solution such as
 
 ### Element 2:
-- [ ] Create a website to showcase:
+- [x] Create a website to showcase:
   - [x] the map
   - [x] weather
   - [x] air quality
@@ -97,12 +97,12 @@ You are required to provide a short (no more than 1500 word) report on the cloud
     - [x] layout
     - [x] navigation
     - [x] presentation.
-  - [ ] Whilst we don’t cover web design or usability best practice you should have covered this in previous modules.
-    - [ ] You may want to refer to the Nielson Norman Group for guidance on usability best practice (https://www.nngroup.com/topic/web-usability);
-    - [ ] W3C also have some practical guidance on how you can make your website accessible and therefore useable (https://www.w3.org/TR/WCAG21/).
-  - [ ] make sure that you simply don’t copy and paste code from the workshop material.
-  - [ ] Any work that is submitted that is not your own should be properly referenced in a separate ‘About’ page within the website.
-  - [ ] You will not receive any marks for code directly copied and pasted from the workshops – if you are unsure about this please speak to the tutor.
+  - [x] Whilst we don’t cover web design or usability best practice you should have covered this in previous modules.
+    - [x] You may want to refer to the Nielson Norman Group for guidance on usability best practice (https://www.nngroup.com/topic/web-usability);
+    - [x] W3C also have some practical guidance on how you can make your website accessible and therefore useable (https://www.w3.org/TR/WCAG21/).
+  - [x] make sure that you simply don’t copy and paste code from the workshop material.
+  - [x] Any work that is submitted that is not your own should be properly referenced in a separate ‘About’ page within the website.
+  - [x] You will not receive any marks for code directly copied and pasted from the workshops – if you are unsure about this please speak to the tutor.
 
 ### Element 3:
 - [x] You should display air quality data for each city on the map. How you do this is up to you,
@@ -117,24 +117,24 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 
 ### Element 4:
 - [x] A user should be able to select a location on the map
-- [ ] calculate the distance
+- [] calculate the distance
 - [x] get the directions between the selected location and the Living Planet HQ which are located at NE1 8ST.
-- [ ] You should use the Google Matrix distance service and directions service to calculate the distance and directions respectively.
+- [x] You should use the Google Matrix distance service and directions service to calculate the distance and directions respectively.
 
 ### Element 5:
 - [x] You will create a web page that demonstrates implementation of the Google OAuth functionality.
-- [ ] The page will provide a short description of the OAuth process and how it allows you to authenticate users to access certain elements of your website.
+- [x] The page will provide a short description of the OAuth process and how it allows you to authenticate users to access certain elements of your website.
 - [x] The OAuth page should only be accessible when a user has authorised access to the page through the OAuth protocol.
-- [ ] Your application should be registered with Google and authorised using the OAuth protocol.
+- [x] Your application should be registered with Google and authorised using the OAuth protocol.
 - [x] Users not signed into Google will need to sign in to Google, and then authorise the app (application).
 - [x] Users who are logged in to Google should be able to use your page directly, although they will still need to authorise the app.
-- [ ] You should not directly copy the code from the labs for this exercise.
-  - [ ] We accept that your code may be similar but only relevant code should be provided and you should write your own comments to describe what you think the code is doing.
-  - [ ] If you are submitting any code that is not your own it should be properly referenced in the About page
+- [x] You should not directly copy the code from the labs for this exercise.
+  - [x] We accept that your code may be similar but only relevant code should be provided and you should write your own comments to describe what you think the code is doing.
+  - [x] If you are submitting any code that is not your own it should be properly referenced in the About page
 
 ### Element 6:
-- [ ] Display weather forecast for Living Planet HQ by default on the homepage.
-- [ ] Selecting a location on the map should update the forecast to contain the local weather for the geolocation of the selected location.
+- [x] Display weather forecast for Living Planet HQ by default on the homepage.
+- [x] Selecting a location on the map should update the forecast to contain the local weather for the geolocation of the selected location.
 - [x] Use any open weather API to access weather data.
 
 
