@@ -59,3 +59,38 @@ sudo certbot --apache -d "${domain}" --email "${email}" --agree-tos --non-intera
 
 # Install a cron job to renew the certificate
 echo "0 12 1 * * root $(which certbot) renew --quiet" | sudo tee -a /etc/cron.d/certbot
+
+# Rotate logs daily and retain for 7 days
+logrotate_conf="
+# see 'man logrotate' for details
+
+# global options do not affect preceding include directives
+
+# rotate log files daily
+daily
+
+# use the adm group by default, since this is the owning group
+# of /var/log/syslog.
+su root adm
+
+# keep 7 days worth of backlogs
+rotate 7
+
+# create new (empty) log files after rotating old ones
+create
+
+# use date as a suffix of the rotated file
+#dateext
+
+# uncomment this if you want your log files compressed
+#compress
+
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# system-specific logs may also be configured here.
+"
+
+# Configure logrotate.conf. This will have permissions 644 by default (read-write for root, read for everyone else)
+# This is appropriate as cron.daily runs as root
+echo "$logrotate_conf" | sudo tee /etc/logrotate.conf
