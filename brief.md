@@ -34,9 +34,9 @@ Your organisation does not own a data centre or server for hosting client soluti
 **Please note: this is not simply a website – this is a web solution that combines a number of APIs and technologies that is provided through a cloud service that you source.Cloud Solution Deliverables:**
 
 - [ ] You will develop a web solution which should be compatible with any cloud service.
-  - [ ] That is you may deploy your code on a web app, virtual machine or some other service and it should work without changes to the underlying source code.
-  - [ ] Your cloud solution should be appropriately protected against common security issues.
-  - [ ] You are expected to use the tools and technologies covered in the module.
+  - [x] That is you may deploy your code on a web app, virtual machine or some other service and it should work without changes to the underlying source code.
+  - [x] Your cloud solution should be appropriately protected against common security issues.
+  - [x] You are expected to use the tools and technologies covered in the module.
   - [x] That is, you should use PHP for your server-side code and jQuery for client-side programming.
   - [x] We know there are alternative frameworks available, but these core technologies demonstrate your fundamental understanding of the technologies that underpin many modern frameworks.
 
@@ -61,14 +61,14 @@ You are required to provide a short (no more than 1500 word) report on the cloud
 
 ### Element 1:
 - [x] Cloud-based service
-- [ ] Appropriate security
-  - [ ] Support the website and third party solutions used by other elements of the assignment
-  - [ ] Suitable roles and user accounts
-    - [ ] Configuring the service
-    - [ ] Uploading web files to the service
-    - [ ] IAM roles
+- [x] Appropriate security
+  - [x] Support the website and third party solutions used by other elements of the assignment
+  - [x] Suitable roles and user accounts
+    - [x] Configuring the service
+    - [x] Uploading web files to the service
+    - [x] IAM roles
     - [x] Firewall security
-    - [ ] where appropriate – different cloud services have different security features
+    - [x] where appropriate – different cloud services have different security features
     - [ ] The evidence of this element will be demonstrated via the video walkthrough of your cloud solution.
 - [ ] Evidence given in the video and the link to the URL of the solution
   - [ ] Audio explanation of how each component is implemented

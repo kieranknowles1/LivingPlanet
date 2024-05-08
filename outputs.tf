@@ -3,7 +3,7 @@ output "fqdn" {
   value = module.network.fqdn
 }
 
-output "src_blob_url" {
-  description = "The URL of the source code blob"
-  value = azurerm_storage_blob.html.id
+output "ssh_string" {
+  description = "The SSH/SCP string to connect to the VM"
+  value = "${var.username}@${module.network.fqdn}"
 }

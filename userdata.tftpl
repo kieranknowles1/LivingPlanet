@@ -52,24 +52,7 @@ sudo service apache2 restart
 sudo echo "SetEnv OPENWEATHER_API_KEY ${openweather_api_key}" | sudo tee /etc/apache2/conf-enabled/openweather-api-key.conf
 sudo chmod 777 /etc/apache2/conf-enabled/openweather-api-key.conf
 
-# Download the app code
-wget -O /tmp/src.zip "${src_blob_url}"
-
-# Clear any default files in the web root and unzip the app code
-sudo rm -rf /var/www/html/*
-sudo unzip /tmp/src.zip -d /var/www/html
-
-# Install PHP dependencies and get rid of files we no longer need
-(
-    cd /var/www/html
-    sudo composer install
-    sudo rm composer.json composer.lock
-)
-
-# Give Apache ownership of all public files
-sudo chown -R "$APACHE_USER:$APACHE_USER" /var/www/html
-
-# Issue a SSL certificate. Certbot automatically configures Apache to upgrade all HTTP traffic to HTTPS
+# Issue an SSL certificate. Certbot automatically configures Apache to upgrade all HTTP traffic to HTTPS
 sudo snap install --classic certbot
 
 sudo certbot --apache -d "${domain}" --email "${email}" --agree-tos --non-interactive

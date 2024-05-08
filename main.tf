@@ -10,12 +10,6 @@ module "network" {
   region              = var.region
 }
 
-module "storage" {
-  source              = "./storage"
-  resource_group_name = azurerm_resource_group.rg.name
-  region              = var.region
-}
-
 data "http" "setup_ip" {
   url = "http://ifconfig.me"
 }
@@ -41,24 +35,6 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg_associa
   network_security_group_id = module.network.security_group_id
 }
 
-# Zip and upload the source code to the storage account
-data "archive_file" "src" {
-  type        = "zip"
-  source_dir  = "src/html"
-  output_path = "html.zip"
-  # Exclude the vendor directory. This will be installed by the VM
-  excludes = [ "vendor" ]
-}
-
-# Blob containing the zippped source code. The ID of the resource is the URL to the blob
-resource "azurerm_storage_blob" "html" {
-  name                   = "html.zip"
-  storage_account_name   = module.storage.storage_account_name
-  storage_container_name = module.storage.src_container_name
-  type                   = "Block"
-  source                 = data.archive_file.src.output_path
-}
-
 # Create a virtual machine. Needs all of the resources created above
 # Uses a B1s VM size. Can host 1 of these for free with a student account
 resource "azurerm_linux_virtual_machine" "vm" {
@@ -67,7 +43,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   location            = azurerm_resource_group.rg.location
 
   admin_username = var.username
-  # Use the SSH key from the local machine. This will be the only way to access the VM
+  # The admin doesn't have a password, but don't even allow the option
+  disable_password_authentication = true
+  # Only allow login with the local machine's public key. Security rules also restrict the IP in case the key is compromised
   admin_ssh_key {
     username   = var.username
     public_key = file(var.ssh_public_key)
@@ -91,16 +69,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   user_data = base64encode(replace(templatefile("./userdata.tftpl", {
-    src_blob_url        = azurerm_storage_blob.html.id
     username            = var.username
     domain              = module.network.fqdn
     email               = var.email
     openweather_api_key = var.openweather_api_key
   }), "\r\n", "\n"))
-
-  boot_diagnostics {
-    storage_account_uri = module.storage.primary_blob_endpoint
-  }
 }
 
 resource "azurerm_network_security_rule" "allow_ssh" {

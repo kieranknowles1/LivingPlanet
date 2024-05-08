@@ -7,10 +7,13 @@ def main [
 ] {
     if $destroy {
         destroy
-    } else if $update {
-        update
     } else {
-        deploy
+        if (not $update) {
+            deploy
+            # Give the VM some time to start before SSHing in
+            sleep 30sec
+        }
+        upload_src
     }
 }
 
@@ -28,17 +31,18 @@ def deploy [] {
     # Apply the deployment
     terraform apply main.tfplan
 
+    # The old SSH signature will be invalid, so we need to remove it
+    ssh-keygen -R $"(terraform output -raw fqdn)"
+
     print "Deployment complete. Please allow up to 5 minutes for setup to complete."
     print $"You can access the website at: http://(terraform output -raw fqdn)"
 }
 
-def update [] {
-    # Plan and apply has uploaded the latest source code to the storage account
-    # just need to SSH into the VM and pull the latest code
-    print "Uploading the new source code to the VM..."
-    print "You may have to enter your SSH password and/or accept the host key."
+def upload_src [] {
+    print "Uploading source code to the VM..."
+    print "You may have to enter your SSH password and/or accept the host key. Your input will not be echoed to the console"
 
-    let fqdn = terraform output -raw fqdn
+    let ssh_string = terraform output -raw ssh_string
     let src_local_path = $"(pwd)/src.zip"
     let src_remote_path = $"/tmp/src_(random int).zip"
 
@@ -48,7 +52,7 @@ def update [] {
         ^zip -r $src_local_path . -x "vendor/*"
     }
     # Upload via SCP
-    scp $src_local_path $"azureuser@($fqdn):($src_remote_path)"
+    scp $src_local_path $"($ssh_string):($src_remote_path)"
 
     # /var/www/html is owned by www-data, but we are running as azureuser
     # So we neet to run everything as root then give ownership back to www-data
@@ -68,7 +72,7 @@ def update [] {
 
     # This will not prompt for a password unless your SSH key is password protected
     # Run the commands and exit. Output will be streamed to the console
-    ssh $"azureuser@($fqdn)" $commands
+    ssh $ssh_string $commands
 }
 
 def destroy [] {
