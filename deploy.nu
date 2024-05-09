@@ -10,10 +10,13 @@ def main [
     } else {
         if (not $update) {
             deploy
-            # Give the VM some time to start before SSHing in
+            # Let the VM boot before SSHing in
             sleep 30sec
         }
         upload_src
+
+        print "Deployment complete."
+        print $"You can access the website at: http://(terraform output -raw fqdn)"
     }
 }
 
@@ -33,9 +36,6 @@ def deploy [] {
 
     # The old SSH signature will be invalid, so we need to remove it
     ssh-keygen -R $"(terraform output -raw fqdn)"
-
-    print "Deployment complete. Please allow up to 5 minutes for setup to complete."
-    print $"You can access the website at: http://(terraform output -raw fqdn)"
 }
 
 def upload_src [] {
@@ -57,6 +57,12 @@ def upload_src [] {
     # /var/www/html is owned by www-data, but we are running as azureuser
     # So we neet to run everything as root then give ownership back to www-data
     let commands = [
+        # We need to run unzip and composer, which are installed during cloud-init
+        # By waiting for the dpkg lock to be released, we ensure that these are installed which
+        # avoids a race condition. Apt-get is the first stage of the userdata script, and we already
+        # waited to let the VM boot, so this should be safe
+        "echo 'Waiting for apt-get to complete'",
+        "while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done",
         "echo 'Removing the old source code'"
         "sudo rm -rf /var/www/html/*",
         # Delete the .htaccess file, but don't care if it doesn't exist
