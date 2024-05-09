@@ -63,11 +63,11 @@ def upload_src [] {
         "sudo rm /var/www/html/.htaccess || true",
         "echo 'Unzipping the new source code'"
         $"sudo unzip ($src_remote_path) -d /var/www/html"
+        "echo 'Setting permissions'"
+        "sudo chown -R www-data:www-data /var/www/html",
         "echo 'Installing dependencies'"
         "cd /var/www/html"
-        "sudo composer install"
-        "echo 'Setting permissions'"
-        "sudo chown -R www-data:www-data /var/www/html"
+        "sudo -u www-data composer install"
     ] | str join " && "
 
     # This will not prompt for a password unless your SSH key is password protected
