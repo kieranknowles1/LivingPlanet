@@ -223,8 +223,8 @@ window.onMapsLoaded = () => {
 jQuery(document).ready(() => {
   getCurrentWeather(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng).then(weather => {
     $('#description').text(weather.weather[0].description)
-    $('#temperature').text(`${weather.main.temp}°C`)
-    $('#windSpeed').text(`${weather.wind.speed} m/s`)
+    $('#temperature').text(weather.main.temp)
+    $('#windSpeed').text(weather.wind.speed)
   }).catch(e => {
     console.error(e)
   })
